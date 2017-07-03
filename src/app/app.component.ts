@@ -4,10 +4,13 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
 import {PropertyListPage} from '../pages/property-list/property-list';
-import {BrokerListPage} from '../pages/broker-list/broker-list';
-import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
+
+import {VehiculeListPage} from '../pages/vehicule-list/vehicule-list';
 import {WelcomePage} from '../pages/welcome/welcome';
 import {AboutPage} from '../pages/about/about';
+
+import {BrokerListPage} from '../pages/broker-list/broker-list';
+import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
 
 export interface MenuItem {
     title: string;
@@ -25,30 +28,21 @@ export class MyApp {
 
     appMenuItems: Array<MenuItem>;
 
-    accountMenuItems: Array<MenuItem>;
-
-    helpMenuItems: Array<MenuItem>;
+    configMenuItems: Array<MenuItem>;
 
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
         this.initializeApp();
 
         this.appMenuItems = [
-            {title: 'Properties', component: PropertyListPage, icon: 'home'},
-            {title: 'Brokers', component: BrokerListPage, icon: 'people'},
-            {title: 'Favorites', component: FavoriteListPage, icon: 'star'},
-            {title: 'Get Preapproved', component: WelcomePage, icon: 'checkmark-circle'},
+            {title: 'Lobby', component: PropertyListPage, icon: 'chatboxes'}
         ];
 
-        this.accountMenuItems = [
-            {title: 'My Account', component: WelcomePage, icon: 'ios-contact'},
-            {title: 'Logout', component: WelcomePage, icon: 'log-out'},
+        this.configMenuItems = [
+            {title: 'Clubs', component: BrokerListPage, icon: 'md-person'},
+            {title: 'Passengers', component: FavoriteListPage, icon: 'md-walk'},
+            {title: 'Vehicules', component: VehiculeListPage, icon: 'md-car'},
+            {title: 'Travels', component: WelcomePage, icon: 'md-time'}
         ];
-
-        this.helpMenuItems = [
-            {title: 'Welcome', component: WelcomePage, icon: 'bookmark'},
-            {title: 'About', component: AboutPage, icon: 'information-circle'},
-        ];
-
     }
 
     initializeApp() {
