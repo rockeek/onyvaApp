@@ -8,10 +8,9 @@
 </ion-header>
 
 <ion-content class="vehicule-list">
-
     <ion-list>
         <ion-item-sliding *ngFor="let vehicule of vehicules">
-            <button ion-item (click)="openVehiculeDetail(property)">
+            <button ion-item (click)="openVehiculeDetail(vehicule)">
                 <ion-thumbnail item-left>
                     <img src="{{vehicule.photo}}"/>
                 </ion-thumbnail>
@@ -23,4 +22,19 @@
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
+    <div class="vehicule_editor" *ngIf="selectedVehicule">
+        <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input [(ngModel)]="selectedVehicule.name" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Trademark</ion-label>
+            <ion-input [(ngModel)]="selectedVehicule.trademark" type="text"></ion-input>
+        </ion-item>
+        <ion-buttons end>
+            <button ion-button (click)="save()">
+                Save
+            </button>
+        </ion-buttons>
+    </div>
 </ion-content>

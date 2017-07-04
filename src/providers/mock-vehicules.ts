@@ -14,6 +14,14 @@ let vehicules: Array<any> = [
         trademark: "Opel Corsa",
         color: "Bleue",
         seats: "4"
+    },
+    {
+        vehiculeId: 3,
+        photo: "",
+        name: "Super Ferrarri",
+        trademark: "Ferrarri",
+        color: "Rouge",
+        seats: "2"
     }
 ];
 

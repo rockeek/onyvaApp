@@ -1,6 +1,6 @@
 {
   "name": "onyva",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Remy Chatti",
   "homepage": "http://boogy.ovh/",
   "private": true,
@@ -24,6 +24,8 @@
     "@ionic-native/splash-screen": "3.4.2",
     "@ionic-native/status-bar": "3.4.2",
     "@ionic/storage": "2.0.1",
+    "cordova": "^7.0.1",
+    "ionic": "^3.4.0",
     "ionic-angular": "3.0.1",
     "ionicons": "3.0.0",
     "leaflet": "^1.0.3",

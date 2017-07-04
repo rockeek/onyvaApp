@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Config, NavController} from 'ionic-angular';
 import {VehiculeService} from '../../providers/vehicule-service-mock';
+import {Vehicule} from '../../app/vehicule';
 // import {VehiculeDetailPage} from '../vehicule-detail/vehicule-detail';
 import leaflet from 'leaflet';
 
@@ -10,15 +11,17 @@ import leaflet from 'leaflet';
 })
 export class VehiculeListPage {
     
-    vehicules: Array<any>;
+    vehicules: Array<Vehicule>;
+    selectedVehicule: Vehicule;
     
     constructor(public navCtrl: NavController, public service: VehiculeService, public config: Config) {
         this.findAll(); 
     }
     
-    // openVehiculeDetail(vehicule: any) {
-    //     this.navCtrl.push(VehiculeDetailPage, vehicule);
-    // }
+    openVehiculeDetail(vehicule: Vehicule) {
+        this.selectedVehicule = vehicule;
+        //this.navCtrl.push(VehiculeDetailPage, vehicule);
+    }
     
     findAll() {
         this.service.findAll()
