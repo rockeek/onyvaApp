@@ -1,4 +1,4 @@
-# Ionic DreamHouse
+# Onyva application
 
 Onyva application: Ionic 2 application. 
 
