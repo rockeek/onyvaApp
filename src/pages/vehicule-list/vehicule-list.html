@@ -7,34 +7,53 @@
     </ion-navbar>
 </ion-header>
 
+<!--https://www.joshmorony.com/an-in-depth-look-at-the-grid-system-in-ionic-2/-->
 <ion-content class="vehicule-list">
-    <ion-list>
-        <ion-item-sliding *ngFor="let vehicule of vehicules">
-            <button ion-item (click)="openVehiculeDetail(vehicule)">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="scroll-content">
+                <ion-list>
+                    <ion-item-sliding *ngFor="let vehicule of vehicules">
+                        <button ion-item (click)="openVehiculeDetail(vehicule)">
                 <ion-thumbnail item-left>
                     <img src="{{vehicule.photo}}"/>
                 </ion-thumbnail>
                 <h2>{{vehicule.name}}</h2>
                 <p>{{vehicule.trademark}}, {{vehicule.color}} ∙ {{ vehicule.seats }} seats.</p>
             </button>
-            <ion-item-options>
-                <button danger (click)="deleteItem(vehicule)">Delete</button>
-            </ion-item-options>
-        </ion-item-sliding>
-    </ion-list>
-    <div class="vehicule_editor" *ngIf="selectedVehicule">
-        <ion-item>
-            <ion-label floating>Name</ion-label>
-            <ion-input [(ngModel)]="selectedVehicule.name" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Trademark</ion-label>
-            <ion-input [(ngModel)]="selectedVehicule.trademark" type="text"></ion-input>
-        </ion-item>
-        <ion-buttons end>
-            <button ion-button (click)="save()">
-                Save
-            </button>
-        </ion-buttons>
-    </div>
+                        <ion-item-options>
+                            <button danger (click)="deleteItem(vehicule)">Delete</button>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-content class="vehicule-editor" *ngIf="selectedVehicule">
+                    <ion-item>
+                        <ion-label floating>Name</ion-label>
+                        <ion-input [(ngModel)]="selectedVehicule.name" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Trademark</ion-label>
+                        <ion-input [(ngModel)]="selectedVehicule.trademark" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Color</ion-label>
+                        <ion-input [(ngModel)]="selectedVehicule.color" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>Seats</ion-label>
+                        <ion-input [(ngModel)]="selectedVehicule.seats" type="number"></ion-input>
+                    </ion-item>
+                    <ion-buttons end>
+                        <button ion-button (click)="save()">
+                            Save
+                        </button>
+                    </ion-buttons>
+                </ion-content>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

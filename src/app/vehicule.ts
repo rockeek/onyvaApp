@@ -1,5 +1,6 @@
 export class Vehicule {
-    id: number;
+    vehiculeId: number;
+    photo: string;
     name: string;
     trademark: string;
     color: string;

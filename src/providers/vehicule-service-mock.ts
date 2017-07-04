@@ -1,11 +1,16 @@
 import {Injectable} from '@angular/core';
 import vehicules from './mock-vehicules';
+import {Vehicule} from '../app/vehicule';
 
 @Injectable()
 export class VehiculeService {
-    vehicules: Array<any> = [];
+    vehicules: Array<Vehicule> = [];
     
     findAll() {
         return Promise.resolve(vehicules);
     }
+
+    // update(vehicule: Vehicule) {
+    //     this.vehicules.
+    // }
 }

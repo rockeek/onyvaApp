@@ -1,6 +1,16 @@
-.vehicule_editor {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    padding: 16px;
+.vehicule-list {
+    scroll-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    ion-grid {
+        padding: 0;
+        height: 100%;
+    }
+ 
+    ion-row {
+        flex: 1;
+        padding-right: 8px;
+    }
 }
