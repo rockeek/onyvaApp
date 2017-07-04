@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Vehicules</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="vehicule-list">
+
+    <ion-list>
+        <ion-item-sliding *ngFor="let vehicule of vehicules">
+            <button ion-item (click)="openVehiculeDetail(property)">
+                <ion-thumbnail item-left>
+                    <img src="{{vehicule.photo}}"/>
+                </ion-thumbnail>
+                <h2>{{vehicule.name}}</h2>
+                <p>{{vehicule.trademark}}, {{vehicule.color}} ∙ {{ vehicule.seats }} seats.</p>
+            </button>
+            <ion-item-options>
+                <button danger (click)="deleteItem(vehicule)">Delete</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
