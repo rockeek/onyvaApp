@@ -1,6 +1,6 @@
 # Ionic DreamHouse
 
-Ionic DreamHouse is a sample application that demonstrates how to build mobile apps with Ionic 2. 
+Onyva application: Ionic 2 application. 
 
 ## Installation Instructions
 
@@ -14,12 +14,12 @@ Follow these instructions to install the app and run it with the mock (in-memory
 
 1. Clone the repository:
     ```
-    git clone https://github.com/dreamhouseapp/dreamhouse-mobile-ionic
+    git clone https://github.com/rockeek/onyvaApp.git
     ```
 
-1. Navigate to the `dreamhouse-mobile-ionic` directory :
+1. Navigate to the `onyvaApp` directory :
     ```
-    cd dreamhouse-mobile-ionic
+    cd onyvaApp
     ```
 
 1. Install the dependencies
@@ -29,7 +29,7 @@ Follow these instructions to install the app and run it with the mock (in-memory
   
 1. Run the app in the browser
     ```
-    ionic serve
+    ionic run ionic:serve
     ```
 
 ## Using REST Services
