@@ -4,19 +4,26 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import {WelcomePage} from '../pages/welcome/welcome';
-import {VehiculeListPage} from '../pages/vehicule-list/vehicule-list';
-// import {VehiculeDetailPage} from '../pages/vehicule-detail/vehicule-detail';
-import {PropertyListPage} from '../pages/property-list/property-list';
-import {PropertyDetailPage} from '../pages/property-detail/property-detail';
-import {BrokerListPage} from '../pages/broker-list/broker-list';
-import {BrokerDetailPage} from '../pages/broker-detail/broker-detail';
-import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
-import {AboutPage} from '../pages/about/about';
+import { ObservableComponent }  from '../pages/vehicule-observable/observable.component';
 
-import {VehiculeService} from "../providers/vehicule-service-mock";
-import {PropertyService} from "../providers/property-service-mock";
-import {BrokerService} from "../providers/broker-service-mock";
+import { WelcomePage } from '../pages/welcome/welcome';
+import { VehiculeListPage } from '../pages/vehicule-list/vehicule-list';
+// import {VehiculeDetailPage} from '../pages/vehicule-detail/vehicule-detail';
+import { PropertyListPage } from '../pages/property-list/property-list';
+import { PropertyDetailPage } from '../pages/property-detail/property-detail';
+import { BrokerListPage } from '../pages/broker-list/broker-list';
+import { BrokerDetailPage } from '../pages/broker-detail/broker-detail';
+import { FavoriteListPage } from '../pages/favorite-list/favorite-list';
+import { AboutPage } from '../pages/about/about';
+
+import { VehiculeService } from "../providers/vehicule.service";
+//import { VehiculeService } from "../providers/vehicule-service-mock";
+import { PropertyService } from "../providers/property-service-mock";
+
+import { BrokerService } from "../providers/broker-service-mock";
+import { VehiculeData } from '../providers/vehicule-data';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +31,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
+    ObservableComponent,
     WelcomePage,
     AboutPage,
     VehiculeListPage,
@@ -38,6 +46,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    InMemoryWebApiModule.forRoot(VehiculeData)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +67,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     VehiculeService,
     PropertyService,
     BrokerService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

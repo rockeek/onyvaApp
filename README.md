@@ -29,6 +29,10 @@ Follow these instructions to install the app and run it with the mock (in-memory
   
 1. Run the app in the browser
     ```
+    npm start
+    ```
+    or
+    ```
     ionic run ionic:serve
     ```
 
@@ -44,5 +48,5 @@ Follow these instructions to run it with the REST data services:
 
 1. Run the app in the browser
     ```
-    ionic serve
+    npm start
     ```
