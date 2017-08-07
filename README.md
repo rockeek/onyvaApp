@@ -6,10 +6,11 @@ Onyva application: Ionic 2 application.
 
 Follow these instructions to install the app and run it with the mock (in-memory) data services:
 
-1. **Make sure you have the latest version of Cordova and Ionic:**
+1. **Make sure you have the latest version of Cordova and Ionic and Node:**
     ```
     npm install -g cordova
     npm install -g ionic
+    nvm install node
     ```
 
 1. Clone the repository:
@@ -35,6 +36,8 @@ Follow these instructions to install the app and run it with the mock (in-memory
     ```
     ionic run ionic:serve
     ```
+
+Note: under windows, if c:\src is a link, please go to the real directory to make it work.
 
 ## Using REST Services
 
