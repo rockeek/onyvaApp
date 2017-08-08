@@ -9,8 +9,4 @@ export class VehiculeService {
     findAll() {
         return Promise.resolve(vehicules);
     }
-
-    // update(vehicule: Vehicule) {
-    //     this.vehicules.
-    // }
 }

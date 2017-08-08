@@ -49,7 +49,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     IonicModule.forRoot(MyApp),
 
     // Disable InMemoryWebApiModule to let real web service be reached
-    //InMemoryWebApiModule.forRoot(VehiculeData)
+    // InMemoryWebApiModule.forRoot(VehiculeData)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
