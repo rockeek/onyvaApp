@@ -13,7 +13,7 @@ export class VehiculeService {
     
     constructor(private http: Http) { }
 
-    getVehiculesWithObservable(): Observable<Vehicule[]> {
+    getVehicules(): Observable<Vehicule[]> {
         let cpHeaders = new Headers({ 'Content-Type': 'application/json'}); // , 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
         let cpParams = new URLSearchParams();
         let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
@@ -24,7 +24,7 @@ export class VehiculeService {
             .catch(this.handleErrorObservable);
     }
 
-    addVehiculeWithObservable(vehicule: Vehicule): Observable<Vehicule> {
+    addVehicule(vehicule: Vehicule): Observable<Vehicule> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(vehiculesURL, vehicule, options)

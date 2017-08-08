@@ -15,17 +15,19 @@
                 <ion-list>
                     <ion-item-sliding *ngFor="let vehicule of vehicules">
                         <button ion-item (click)="openVehiculeDetail(vehicule)">
-                <ion-thumbnail item-left>
-                    <img src="{{vehicule.photo}}"/>
-                </ion-thumbnail>
-                <h2>{{vehicule.name}}</h2>
-                <p>{{vehicule.trademark}}, {{vehicule.color}} ∙ {{ vehicule.seats }} seats.</p>
-            </button>
+                            <ion-thumbnail item-left>
+                                <img src="{{vehicule.photo}}"/>
+                            </ion-thumbnail>
+                            <h2>{{vehicule.name}}</h2>
+                            <p>{{vehicule.trademark}}, {{vehicule.color}} ∙ {{ vehicule.seats }} seats.</p>
+                        </button>
                         <ion-item-options>
                             <button danger (click)="deleteItem(vehicule)">Delete</button>
                         </ion-item-options>
                     </ion-item-sliding>
                 </ion-list>
+                <div *ngIf="vehiculeName" [ngClass]="'success'"> {{vehiculeName}} Added. </div>
+                <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
             </ion-col>
         </ion-row>
         <ion-row>
@@ -51,6 +53,23 @@
                         <button ion-button (click)="save()">
                             Save
                         </button>
+                    </ion-buttons>
+                </ion-content>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-content>
+                    <ion-item>
+                        <ion-label>VehiculeId: </ion-label>
+                        <ion-input [(ngModel)]="vehicule.vehiculeId"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Name: </ion-label>
+                        <ion-input [(ngModel)]="vehicule.name"></ion-input>
+                    </ion-item>
+                    <ion-buttons end>
+                        <button ion-button (click)="addVehicule()">Add</button>
                     </ion-buttons>
                 </ion-content>
             </ion-col>
