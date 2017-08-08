@@ -53,3 +53,9 @@ Follow these instructions to run it with the REST data services:
     ```
     npm start
     ```
+
+## CORS issues
+
+To avoid CORS issues, we implemented a proxy in ionic.config.json
+This way we can reach the REST services from another web server without having Cross Origin Resource Sharing issue.
+

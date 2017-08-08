@@ -23,6 +23,7 @@ import { PropertyService } from "../providers/property-service-mock";
 import { BrokerService } from "../providers/broker-service-mock";
 import { VehiculeData } from '../providers/vehicule-data';
 
+// To disable to use real API services
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -46,7 +47,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    InMemoryWebApiModule.forRoot(VehiculeData)
+
+    // Disable InMemoryWebApiModule to let real web service be reached
+    //InMemoryWebApiModule.forRoot(VehiculeData)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

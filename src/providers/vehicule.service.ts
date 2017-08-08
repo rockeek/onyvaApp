@@ -3,16 +3,23 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/toPromise';
 
 import { Vehicule } from '../app/vehicule';
 
 @Injectable()
 export class VehiculeService {
-    url = "api/vehicules";
+    // url = "api/vehicules";
+    url = "http://localhost:8100/api/getvehicule"
     constructor(private http: Http) { }
     getVehiculesWithObservable(): Observable<Vehicule[]> {
-        return this.http.get(this.url)
+        let cpHeaders = new Headers({ 'Content-Type': 'application/json'}); // , 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
+        //let cpParams = new URLSearchParams();
+        let options = new RequestOptions({ headers: cpHeaders });
+        //let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
+
+        let body = { identifier:"aaabbb" };
+        //return this.http.get(this.url, options)
+        return this.http.post(this.url, body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
@@ -23,29 +30,13 @@ export class VehiculeService {
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
-    // getVehiculesWithPromise(): Promise<Vehicule[]> {
-    //     return this.http.get(this.url).toPromise()
-    //         .then(this.extractData)
-    //         .catch(this.handleErrorPromise);
-    // }
-    // addVehiculeWithPromise(vehicule: Vehicule): Promise<Vehicule> {
-    //     let headers = new Headers({ 'Content-Type': 'application/json' });
-    //     let options = new RequestOptions({ headers: headers });
-    //     return this.http.post(this.url, vehicule, options).toPromise()
-    //         .then(this.extractData)
-    //         .catch(this.handleErrorPromise);
-    // }
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
     private handleErrorObservable(error: Response | any) {
         console.error(error.message || error);
         return Observable.throw(error.message || error);
     }
-    // private handleErrorPromise(error: Response | any) {
-    //     console.error(error.message || error);
-    //     return Promise.reject(error.message || error);
-    // }
-} 
+}
