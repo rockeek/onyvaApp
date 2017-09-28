@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
-import {Config /*, NavController */ } from 'ionic-angular';
-import {VehiculeService} from '../../providers/vehicule.service';
-import {Vehicule} from '../../app/vehicule';
+import { Location } from '@angular/common';
+import { Config, NavController } from 'ionic-angular';
+import { VehiculeService } from '../../providers/vehicule.service';
+import { VehiculeDetailPage } from '../vehicule-detail/vehicule-detail';
+import { Vehicule } from '../../app/vehicule';
 import leaflet from 'leaflet';
 
 @Component({
@@ -17,12 +18,11 @@ export class VehiculeListPage implements OnInit {
     vehicule = new Vehicule();
 
     constructor(
-        // public navCtrl: NavController,
+        public navCtrl: NavController,
         public location: Location,
         public vehiculeService: VehiculeService,
-        public config: Config) 
-    {
-        this.fetchVehicules(); 
+        public config: Config) {
+        this.fetchVehicules();
     }
 
     ngOnInit(): void {
@@ -36,19 +36,32 @@ export class VehiculeListPage implements OnInit {
     }
 
     openVehiculeDetail(vehicule: Vehicule) {
-        this.selectedVehicule = vehicule;
-        // this.navCtrl.push(VehiculeDetailPage, vehicule);
+        // this.selectedVehicule = vehicule;
+        this.navCtrl.push(VehiculeDetailPage,
+            {
+                vehicule: vehicule,
+                vehicules: this.vehicules
+            }
+        );
+
+        // VehiculeDetailPage.onPop(() => console.info('Back from details'));
     }
-    
-    addVehicule(): void {
-        this.vehiculeService.addVehicule(this.vehicule)
-            .subscribe(vehicule => {
-                this.fetchVehicules();
-                this.reset();
-                this.vehiculeName = vehicule.name;
-            },
-            error => this.errorMessage = <any>error);
+
+    deleteItem(vehicule: Vehicule) {
+        let index: number = this.vehicules.indexOf(vehicule);
+        if (index !== -1) {
+            this.vehicules.splice(index, 1);
+        }
+        
+        // TODO
+        // this.deleteVehicule(index);
     }
+
+    // private deleteVehicule(index: number) {
+    //     this.vehiculeService.deleteVehicule(index)
+    //         .subscribe(vehicules => this.vehicules = vehicules,
+    //         error => this.errorMessage = <any>error);
+    // }
 
     private reset() {
         this.vehicule.vehiculeId = null;

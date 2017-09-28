@@ -7,6 +7,7 @@ import { MyApp } from './app.component';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { VehiculeListPage } from '../pages/vehicule-list/vehicule-list';
+import { VehiculeDetailPage } from '../pages/vehicule-detail/vehicule-detail';
 import { PropertyListPage } from '../pages/property-list/property-list';
 import { PropertyDetailPage } from '../pages/property-detail/property-detail';
 import { BrokerListPage } from '../pages/broker-list/broker-list';
@@ -33,6 +34,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     WelcomePage,
     AboutPage,
     VehiculeListPage,
+    VehiculeDetailPage,
     PropertyListPage,
     PropertyDetailPage,
     FavoriteListPage,
@@ -53,6 +55,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     WelcomePage,
     AboutPage,
     VehiculeListPage,
+    VehiculeDetailPage,
     PropertyListPage,
     PropertyDetailPage,
     FavoriteListPage,

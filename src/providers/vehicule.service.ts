@@ -10,7 +10,8 @@ let vehiculesURL = SERVER_URL + "getvehicule";
 
 @Injectable()
 export class VehiculeService {
-    
+    errorMessage: String;
+
     constructor(private http: Http) { }
 
     getVehicules(): Observable<Vehicule[]> {
@@ -30,6 +31,23 @@ export class VehiculeService {
         return this.http.post(vehiculesURL, vehicule, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
+    }
+
+    updateVehicules(vehicules: Vehicule[]): Observable<Vehicule[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        let params = [{ identifier:"aaabbb" }, { vehicules: vehicules }]; // This array should be useless. Server must be modified.
+        let body = JSON.stringify(params);
+        return this.http.post(SERVER_URL + "setvehicule", body, options)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    }
+
+    findById(id: number): Observable<Vehicule> {
+        return this.getVehicules()
+        .filter(<Vehicule>(v) => v.vehiculeId === id)
+        .catch(err => Observable.throw(err));
     }
 
     private extractData(res: Response) {
