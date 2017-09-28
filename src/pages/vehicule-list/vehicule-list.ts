@@ -23,24 +23,23 @@ export class VehiculeListPage implements OnInit {
         public vehiculeService: VehiculeService,
         public config: Config) {
         
-        this.fetchVehicules(); // It seems that fetching here and in ngOnInit speeds up the loading
+        //this.fetchVehicules(); // It seems that fetching here and in ngOnInit speeds up the loading
     }
 
-    saveCallback = (_params) => {
+    ngOnInit(): void {
+        this.fetchVehicules(); // It seems that fetching here and in constructor speeds up the loading
+    }
+
+    saveCallback = (vehicule) => {
         return new Promise((resolve, reject) => {
-            this.vehicules = _params;
             console.log('Back in the list page.');
 
-            this.vehiculeService.updateVehicules(this.vehicules)
+            this.vehiculeService.updateVehicules([vehicule])
                 .subscribe(vehicules => { 
                     this.vehicules = vehicules;
                     resolve(); // resolve only when we get the server's answer
                 }, error => this.errorMessage = <any>error);            
         });
-    }
-
-    ngOnInit(): void {
-        this.fetchVehicules(); // It seems that fetching here and in constructor speeds up the loading
     }
 
     fetchVehicules(): void {
@@ -53,11 +52,10 @@ export class VehiculeListPage implements OnInit {
             error => this.errorMessage = <any>error);
     }
 
-    openDetail(vehicule: Vehicule) {
+    open(vehicule: Vehicule) {
         this.navCtrl.push(VehiculeDetailPage,
             {
                 vehicule: vehicule,
-                vehicules: this.vehicules,
                 callback: this.saveCallback
             }
         );
@@ -80,10 +78,7 @@ export class VehiculeListPage implements OnInit {
                 error => this.errorMessage = <any>error);
             // this.vehicules.splice(index, 1);
         }
-        
-        
     }
-
 
     goBack(): void {
         this.location.back();

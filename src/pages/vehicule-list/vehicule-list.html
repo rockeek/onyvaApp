@@ -12,7 +12,7 @@
     <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
     <ion-list>
         <ion-item-sliding *ngFor="let vehicule of vehicules">
-            <button ion-item (click)="openDetail(vehicule)">
+            <button ion-item (click)="open(vehicule)">
                 <ion-thumbnail item-left>
                     <img src="{{vehicule.photo}}"/>
                 </ion-thumbnail>
