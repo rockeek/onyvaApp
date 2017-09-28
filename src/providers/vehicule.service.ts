@@ -20,9 +20,10 @@ export class VehiculeService {
         let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
 
         let body = { identifier:"aaabbb" };
-        return this.http.post(vehiculesURL, body, options)
+        let vehicules = this.http.post(vehiculesURL, body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
+        return vehicules;
     }
 
     addVehicule(vehicule: Vehicule): Observable<Vehicule> {
@@ -52,7 +53,14 @@ export class VehiculeService {
 
     private extractData(res: Response) {
         let body = res.json();
-        return body || {};
+        let vehicules = body || {};
+
+        // Set default image for each vehicule while server does not implement that.
+        vehicules.forEach(vehicule => {
+            vehicule.photo = "assets/img/onyva-logo.png";
+        });
+
+        return vehicules;
     }
 
     private handleErrorObservable(error: Response | any) {

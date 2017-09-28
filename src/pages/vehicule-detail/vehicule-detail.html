@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar [hideBackButton]="isLoading">
         <ion-title>Vehicule</ion-title>
     </ion-navbar>
 </ion-header>
@@ -7,10 +7,9 @@
 <ion-content class="vehicule">
     <ion-card>
         <ion-card-content>
-            <img src="{{vehicule.photo}}"/>
-            <h2>{{vehicule.name}}
-                <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
-            </h2>
+            <img class="photo" src="{{vehicule.photo}}"/>
+            <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
+            <h2>{{vehicule.name}}</h2>
         </ion-card-content>
         
 
@@ -42,7 +41,7 @@
 <ion-footer>
 
     <ion-buttons end>
-        <button ion-button (click)="save()">SAVE</button>
+        <button ion-button [disabled]="isLoading" (click)="save()">Save</button>
     </ion-buttons>
 
 </ion-footer>
