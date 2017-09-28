@@ -14,7 +14,6 @@ export class VehiculeListPage implements OnInit {
     errorMessage: String;
     vehiculeName: String;
     vehicules: Vehicule[];
-    selectedVehicule: Vehicule;
     vehicule = new Vehicule();
 
     constructor(
@@ -36,15 +35,12 @@ export class VehiculeListPage implements OnInit {
     }
 
     openVehiculeDetail(vehicule: Vehicule) {
-        // this.selectedVehicule = vehicule;
         this.navCtrl.push(VehiculeDetailPage,
             {
                 vehicule: vehicule,
                 vehicules: this.vehicules
             }
         );
-
-        // VehiculeDetailPage.onPop(() => console.info('Back from details'));
     }
 
     deleteItem(vehicule: Vehicule) {
@@ -74,9 +70,4 @@ export class VehiculeListPage implements OnInit {
     goBack(): void {
         this.location.back();
     }
-
-    // save():void {
-    //     this.vehiculeService.update(this.selectedVehicule)
-    //         .then(() => this.goBack());
-    // }
 }
