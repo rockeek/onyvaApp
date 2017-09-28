@@ -26,7 +26,7 @@ export class VehiculeListPage implements OnInit {
         this.fetchVehicules(); // It seems that fetching here and in ngOnInit speeds up the loading
     }
 
-    myCallbackFunction = (_params) => {
+    saveCallback = (_params) => {
         return new Promise((resolve, reject) => {
             this.vehicules = _params;
             console.log('Back in the list page.');
@@ -53,17 +53,26 @@ export class VehiculeListPage implements OnInit {
             error => this.errorMessage = <any>error);
     }
 
-    openVehiculeDetail(vehicule: Vehicule) {
+    openDetail(vehicule: Vehicule) {
         this.navCtrl.push(VehiculeDetailPage,
             {
                 vehicule: vehicule,
                 vehicules: this.vehicules,
-                callback: this.myCallbackFunction
+                callback: this.saveCallback
             }
         );
     }
 
-    deleteItem(vehicule: Vehicule) {
+    add() {
+        let vehicule = new Vehicule();
+        this.navCtrl.push(VehiculeDetailPage,
+            {
+                vehicule: vehicule,
+                callback: this.saveCallback
+            });
+    }
+
+    delete(vehicule: Vehicule) {
         let index: number = this.vehicules.indexOf(vehicule);
         if (index !== -1) {
             this.vehicules.splice(index, 1);
@@ -78,14 +87,6 @@ export class VehiculeListPage implements OnInit {
     //         .subscribe(vehicules => this.vehicules = vehicules,
     //         error => this.errorMessage = <any>error);
     // }
-
-    private reset() {
-        this.vehicule.vehiculeId = null;
-        this.vehicule.name = null;
-
-        this.errorMessage = null;
-        this.vehiculeName = null;
-    }
 
     goBack(): void {
         this.location.back();

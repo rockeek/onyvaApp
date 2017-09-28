@@ -12,20 +12,26 @@
     <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
     <ion-list>
         <ion-item-sliding *ngFor="let vehicule of vehicules">
-            <button ion-item (click)="openVehiculeDetail(vehicule)">
-                            <ion-thumbnail item-left>
-                                <img src="{{vehicule.photo}}"/>
-                            </ion-thumbnail>
-                            <h2>{{vehicule.name}}</h2>
-                            <p>{{vehicule.trademark}}</p>
-                            <p>{{vehicule.color}}</p>
-                            <p>{{vehicule.seats}} seats</p>
-                        </button>
+            <button ion-item (click)="openDetail(vehicule)">
+                <ion-thumbnail item-left>
+                    <img src="{{vehicule.photo}}"/>
+                </ion-thumbnail>
+                <h2>{{vehicule.name}}</h2>
+                <p>{{vehicule.trademark}}</p>
+                <p>{{vehicule.color}}</p>
+                <p>{{vehicule.seats}} seats</p>
+            </button>
             <ion-item-options>
-                <button danger (click)="deleteItem(vehicule)">Delete</button>
+                <button danger (click)="delete(vehicule)">Delete</button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
     <div *ngIf="vehiculeName" [ngClass]="'success'"> {{vehiculeName}} Added. </div>
     <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
 </ion-content>
+
+<ion-footer>        
+    <ion-buttons end>
+        <button ion-button [disabled]="isLoading" (click)="add()">Add</button>
+    </ion-buttons>
+</ion-footer>

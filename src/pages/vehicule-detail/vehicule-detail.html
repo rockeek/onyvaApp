@@ -7,9 +7,9 @@
 <ion-content class="vehicule">
     <ion-card>
         <ion-card-content>
+            <h2 id="vehiculeName">{{vehicule.name}}</h2>
             <img class="photo" src="{{vehicule.photo}}"/>
             <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
-            <h2>{{vehicule.name}}</h2>
         </ion-card-content>
         
 
