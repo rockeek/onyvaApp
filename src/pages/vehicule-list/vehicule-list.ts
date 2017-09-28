@@ -75,18 +75,15 @@ export class VehiculeListPage implements OnInit {
     delete(vehicule: Vehicule) {
         let index: number = this.vehicules.indexOf(vehicule);
         if (index !== -1) {
-            this.vehicules.splice(index, 1);
+            this.vehiculeService.deleteVehicule(vehicule)
+                .subscribe(vehicules => this.vehicules = vehicules,
+                error => this.errorMessage = <any>error);
+            // this.vehicules.splice(index, 1);
         }
         
-        // TODO
-        // this.deleteVehicule(index);
+        
     }
 
-    // private deleteVehicule(index: number) {
-    //     this.vehiculeService.deleteVehicule(index)
-    //         .subscribe(vehicules => this.vehicules = vehicules,
-    //         error => this.errorMessage = <any>error);
-    // }
 
     goBack(): void {
         this.location.back();

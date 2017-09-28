@@ -38,9 +38,24 @@ export class VehiculeService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let params = {identifier:"aaabbb", vehicules: vehicules}; // This array should be useless. Server must be modified.
+        let params = {identifier:"aaabbb", vehicules: vehicules};
         let body = JSON.stringify(params);
         return this.http.post(SERVER_URL + "setvehicule", body, options)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+    }
+
+    deleteVehicule(vehicule: Vehicule): Observable<Vehicule[]> {
+        if(vehicule == null) {
+            return;
+        }
+        
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        let params = {identifier:"aaabbb", vehiculeId: vehicule.vehiculeId};
+        let body = JSON.stringify(params);
+        return this.http.post(SERVER_URL + "deletevehicule", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
