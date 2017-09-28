@@ -15,6 +15,7 @@ export class VehiculeListPage implements OnInit {
     vehiculeName: String;
     vehicules: Vehicule[];
     vehicule = new Vehicule();
+    isLoading: boolean;
 
     constructor(
         public navCtrl: NavController,
@@ -22,8 +23,7 @@ export class VehiculeListPage implements OnInit {
         public vehiculeService: VehiculeService,
         public config: Config) {
         
-        this.fetchVehicules();
-        
+        this.fetchVehicules(); // It seems that fetching here and in ngOnInit speeds up the loading
     }
 
     myCallbackFunction = (_params) => {
@@ -34,18 +34,22 @@ export class VehiculeListPage implements OnInit {
             this.vehiculeService.updateVehicules(this.vehicules)
                 .subscribe(vehicules => { 
                     this.vehicules = vehicules;
-                    resolve();
+                    resolve(); // resolve only when we get the server's answer
                 }, error => this.errorMessage = <any>error);            
         });
     }
 
     ngOnInit(): void {
-        //this.fetchVehicules();
+        this.fetchVehicules(); // It seems that fetching here and in constructor speeds up the loading
     }
 
     fetchVehicules(): void {
+        this.isLoading = true;
         this.vehiculeService.getVehicules()
-            .subscribe(vehicules => this.vehicules = vehicules,
+            .subscribe(vehicules => {
+                this.vehicules = vehicules;
+                this.isLoading = false;
+            },
             error => this.errorMessage = <any>error);
     }
 

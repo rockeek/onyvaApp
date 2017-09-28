@@ -9,7 +9,7 @@
 
 <!--https://www.joshmorony.com/an-in-depth-look-at-the-grid-system-in-ionic-2/-->
 <ion-content class="vehicule-list">
-
+    <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
     <ion-list>
         <ion-item-sliding *ngFor="let vehicule of vehicules">
             <button ion-item (click)="openVehiculeDetail(vehicule)">

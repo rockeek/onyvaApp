@@ -8,8 +8,11 @@
     <ion-card>
         <ion-card-content>
             <img src="{{vehicule.photo}}"/>
-            <h2>{{vehicule.name}}</h2>
+            <h2>{{vehicule.name}}
+                <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
+            </h2>
         </ion-card-content>
+        
 
         <ion-list>
             <ion-item>
