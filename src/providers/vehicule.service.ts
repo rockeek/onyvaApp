@@ -37,7 +37,7 @@ export class VehiculeService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let params = [{ identifier:"aaabbb" }, { vehicules: vehicules }]; // This array should be useless. Server must be modified.
+        let params = {identifier:"aaabbb", vehicules: vehicules}; // This array should be useless. Server must be modified.
         let body = JSON.stringify(params);
         return this.http.post(SERVER_URL + "setvehicule", body, options)
             .map(this.extractData)

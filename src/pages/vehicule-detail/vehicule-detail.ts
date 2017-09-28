@@ -18,7 +18,6 @@ export class VehiculeDetailPage {
         this.vehicules = this.navParams.get('vehicules');
     }
 
-    // DON'T SAVE HERE. We save on the list form and refresh the list from the server answer
     // https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104/4
     updateVehicules(): void {
         this.service.updateVehicules(this.vehicules)
