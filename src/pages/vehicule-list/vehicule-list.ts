@@ -21,11 +21,26 @@ export class VehiculeListPage implements OnInit {
         public location: Location,
         public vehiculeService: VehiculeService,
         public config: Config) {
+        
         this.fetchVehicules();
+        
+    }
+
+    myCallbackFunction = (_params) => {
+        return new Promise((resolve, reject) => {
+            this.vehicules = _params;
+            console.log('Back in the list page.');
+
+            this.vehiculeService.updateVehicules(this.vehicules)
+                .subscribe(vehicules => { 
+                    this.vehicules = vehicules;
+                    resolve();
+                }, error => this.errorMessage = <any>error);            
+        });
     }
 
     ngOnInit(): void {
-        this.fetchVehicules();
+        //this.fetchVehicules();
     }
 
     fetchVehicules(): void {
@@ -38,7 +53,8 @@ export class VehiculeListPage implements OnInit {
         this.navCtrl.push(VehiculeDetailPage,
             {
                 vehicule: vehicule,
-                vehicules: this.vehicules
+                vehicules: this.vehicules,
+                callback: this.myCallbackFunction
             }
         );
     }

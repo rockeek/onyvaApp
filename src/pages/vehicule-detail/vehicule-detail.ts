@@ -8,6 +8,7 @@ import { Vehicule } from '../../app/vehicule';
     templateUrl: 'vehicule-detail.html'
 })
 export class VehiculeDetailPage {
+    callback: any;
     vehicule: Vehicule;
     vehicules: Vehicule[];
     errorMessage: string;
@@ -16,14 +17,19 @@ export class VehiculeDetailPage {
         // this.vehicule = this.navParams.data;
         this.vehicule = this.navParams.get('vehicule');
         this.vehicules = this.navParams.get('vehicules');
+        this.callback = this.navParams.get('callback');
+
+
     }
 
     // https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104/4
-    updateVehicules(): void {
-        this.service.updateVehicules(this.vehicules)
-            .subscribe(vehicules => this.vehicules = vehicules,
-            error => this.errorMessage = <any>error);
+    save(): void {
+        // this.service.updateVehicules(this.vehicules)
+        //     .subscribe(vehicules => this.vehicules = vehicules,
+        //     error => this.errorMessage = <any>error);
 
-        this.navCtrl.pop();
+        this.callback(this.vehicules).then(()=>{
+            this.navCtrl.pop();
+         });
     }
 }
