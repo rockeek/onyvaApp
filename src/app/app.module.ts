@@ -28,6 +28,9 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { DeviceService } from "../providers/device.service";
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -45,7 +48,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-
+    IonicStorageModule.forRoot(),
     // Disable InMemoryWebApiModule to let real web service be reached
     // InMemoryWebApiModule.forRoot(VehiculeData)
   ],
@@ -68,7 +71,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     VehiculeService,
     PropertyService,
     BrokerService,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    DeviceService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })
 export class AppModule { }

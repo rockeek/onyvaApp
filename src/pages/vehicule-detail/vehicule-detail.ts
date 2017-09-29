@@ -18,7 +18,7 @@ export class VehiculeDetailPage {
         // If we don't, when we go back, the vehicule appears modified.
         this.vehicule = Object.assign({}, this.navParams.get('vehicule'));
         this.callback = this.navParams.get('callback');
-    }   
+    }
 
     save(): void {
         this.isLoading = true;
