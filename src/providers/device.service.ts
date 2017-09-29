@@ -53,12 +53,12 @@ export class DeviceService {
         let params = {identifier: this.identifier, version: Config.clientVersion, os: this.getOs()};
         let body = JSON.stringify(params);
         
-        console.log("Try to register device.");
+        console.debug("Try to register device.");
         this.http.post(Config.serverUrl + "device", body, options)
         .subscribe  ({
             complete: () => { 
                 this.isFullyRegistered = true;
-                console.log(body + " successfully registered."); },
+                console.debug(body + " successfully registered."); },
             error: () => setTimeout(() => this.registerDevice(), 5000) // try again 5 sec later
         });
     }
