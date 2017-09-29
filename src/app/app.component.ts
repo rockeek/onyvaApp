@@ -51,6 +51,8 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
+
+            
         });
     }
 
@@ -58,5 +60,14 @@ export class MyApp {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
+    }
+
+    randomString(length) {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for(var i = 0; i < length; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
     }
 }
