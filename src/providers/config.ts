@@ -1,5 +1,8 @@
-// PROD:
-// export let SERVER_URL = "http://boogy.ovh/onyva/";
+export class Config {
+    // PROD:
+    // static serverUrl = "http://boogy.ovh/onyva/";
 
-//C9:
-export let SERVER_URL = "/";
+    //C9:
+    static serverUrl = "/";
+    static clientVersion = 1;
+}

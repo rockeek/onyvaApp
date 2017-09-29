@@ -1,26 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
-import {SERVER_URL} from './config';
-import { Vehicule } from '../app/vehicule';
-
-let vehiculesURL = SERVER_URL + "getvehicule";
+import {Config} from './config';
+import {Vehicule} from '../app/vehicule';
+import {DeviceService} from './device.service';
 
 @Injectable()
 export class VehiculeService {
     errorMessage: String;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private deviceService: DeviceService) { }
 
     getVehicules(): Observable<Vehicule[]> {
         let cpHeaders = new Headers({ 'Content-Type': 'application/json'}); // , 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
         let cpParams = new URLSearchParams();
         let options = new RequestOptions({ headers: cpHeaders, params: cpParams });
 
-        let body = { identifier:"aaabbb" };
-        let vehicules = this.http.post(vehiculesURL, body, options)
+        let body = { identifier: this.deviceService.identifier };
+        let vehicules = this.http.post(Config.serverUrl + "getvehicule", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
         return vehicules;
@@ -29,7 +28,7 @@ export class VehiculeService {
     addVehicule(vehicule: Vehicule): Observable<Vehicule> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.post(vehiculesURL, vehicule, options)
+        return this.http.post(Config.serverUrl + "getvehicule", vehicule, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
@@ -38,9 +37,9 @@ export class VehiculeService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let params = {identifier:"aaabbb", vehicules: vehicules};
+        let params = {identifier: this.deviceService.identifier, vehicules: vehicules};
         let body = JSON.stringify(params);
-        return this.http.post(SERVER_URL + "setvehicule", body, options)
+        return this.http.post(Config.serverUrl + "setvehicule", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
@@ -49,13 +48,13 @@ export class VehiculeService {
         if(vehicule == null) {
             return;
         }
-        
+
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let params = {identifier:"aaabbb", vehiculeId: vehicule.vehiculeId};
+        let params = {identifier: this.deviceService.identifier, vehiculeId: vehicule.vehiculeId};
         let body = JSON.stringify(params);
-        return this.http.post(SERVER_URL + "deletevehicule", body, options)
+        return this.http.post(Config.serverUrl + "deletevehicule", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
