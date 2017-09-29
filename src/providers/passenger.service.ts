@@ -4,68 +4,62 @@ import {Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
 import {Config} from './config';
-import {Vehicule} from '../app/vehicule';
+import {Passenger} from '../app/passenger';
 import {DeviceService} from './device.service';
 
 @Injectable()
-export class VehiculeService {
+export class PassengerService {
     errorMessage: String;
 
     constructor(private http: Http, private deviceService: DeviceService) { }
 
-    getVehicules(): Observable<Vehicule[]> {
+    getPassengers(): Observable<Passenger[]> {
         let cpHeaders = new Headers({ 'Content-Type': 'application/json'}); // , 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
         let options = new RequestOptions({ headers: cpHeaders });
 
         let body = { identifier: this.deviceService.identifier };
-        let vehicules = this.http.post(Config.serverUrl + "getvehicule", body, options)
+        let passengers = this.http.post(Config.serverUrl + "getpassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
-        return vehicules;
+        return passengers;
     }
 
-    updateVehicules(vehicules: Vehicule[]): Observable<Vehicule[]> {
+    updatePassengers(passengers: Passenger[]): Observable<Passenger[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let params = {identifier: this.deviceService.identifier, vehicules: vehicules};
+        let params = {identifier: this.deviceService.identifier, passengers: passengers};
         let body = JSON.stringify(params);
-        return this.http.post(Config.serverUrl + "setvehicule", body, options)
+        return this.http.post(Config.serverUrl + "setpassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
 
-    deleteVehicule(vehicule: Vehicule): Observable<Vehicule[]> {
-        if(vehicule == null) {
+    deletePassenger(passenger: Passenger): Observable<Passenger[]> {
+        if(passenger == null) {
             return;
         }
 
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let params = {identifier: this.deviceService.identifier, vehiculeId: vehicule.vehiculeId};
+        let params = {identifier: this.deviceService.identifier, passengerId: passenger.passengerId};
         let body = JSON.stringify(params);
-        return this.http.post(Config.serverUrl + "deletevehicule", body, options)
+        return this.http.post(Config.serverUrl + "deletepassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
 
-    findById(id: number): Observable<Vehicule> {
-        return this.getVehicules()
-        .filter(<Vehicule>(v) => v.vehiculeId === id)
+    findById(id: number): Observable<Passenger> {
+        return this.getPassengers()
+        .filter(<Passenger>(v) => v.passengerId === id)
         .catch(err => Observable.throw(err));
     }
 
     private extractData(res: Response) {
         let body = res.json();
-        let vehicules = body || {};
-
-        // Set default image for each vehicule while server does not implement that.
-        vehicules.forEach(vehicule => {
-            vehicule.photo = "assets/img/onyva-logo.png";
-        });
-
-        return vehicules;
+        let passengers = body || {};
+        return passengers;
     }
 
     private handleErrorObservable(error: Response | any) {

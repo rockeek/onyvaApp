@@ -9,7 +9,7 @@ import {WelcomePage} from '../pages/welcome/welcome';
 import {AboutPage} from '../pages/about/about';
 
 import {BrokerListPage} from '../pages/broker-list/broker-list';
-import {FavoriteListPage} from '../pages/favorite-list/favorite-list';
+import {PassengerListPage} from '../pages/passenger-list/passenger-list';
 
 import {DeviceService} from '../providers/device.service';
 
@@ -41,7 +41,7 @@ export class MyApp {
 
         this.configMenuItems = [
             {title: 'Clubs', component: BrokerListPage, icon: 'md-person'},
-            {title: 'Passengers', component: FavoriteListPage, icon: 'md-walk'},
+            {title: 'Passengers', component: PassengerListPage, icon: 'md-walk'},
             {title: 'Vehicules', component: VehiculeListPage, icon: 'md-car'},
             {title: 'Travels', component: WelcomePage, icon: 'md-time'}
         ];

@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-navbar [hideBackButton]="isLoading">
+        <ion-title>Passenger</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="passenger">
+    <ion-card>
+        <ion-card-content>
+            <h2 id="passengerName">{{passenger.name}}</h2>
+            <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
+        </ion-card-content>
+        
+        <ion-list>
+            <ion-item>
+                <ion-icon name="" item-left></ion-icon>
+                <ion-label floating>Name</ion-label>
+                <ion-input [(ngModel)]="passenger.name" type="text"></ion-input>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+</ion-content>
+
+<ion-footer>
+
+    <ion-buttons end>
+        <button ion-button [disabled]="isLoading" (click)="save()">Save</button>
+    </ion-buttons>
+
+</ion-footer>

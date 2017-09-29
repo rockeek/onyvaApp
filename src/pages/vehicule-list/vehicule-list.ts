@@ -22,12 +22,10 @@ export class VehiculeListPage implements OnInit {
         public location: Location,
         public vehiculeService: VehiculeService,
         public config: Config) {
-        
-        //this.fetchVehicules(); // It seems that fetching here and in ngOnInit speeds up the loading
     }
 
     ngOnInit(): void {
-        this.fetchVehicules(); // It seems that fetching here and in constructor speeds up the loading
+        this.fetchVehicules();
     }
 
     saveCallback = (vehicule) => {
