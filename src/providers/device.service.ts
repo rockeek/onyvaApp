@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Http, Response } from '@angular/http';
 import { Config } from './config';
+import { HelpersService } from './helpers.service';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Platform } from 'ionic-angular';
@@ -26,7 +27,8 @@ export class DeviceService {
     constructor(
         private storage: Storage,
         private http: Http,
-        private platform: Platform) { 
+        private platform: Platform,
+        private helpersService: HelpersService) { 
     }
 
     public getOs(){
@@ -64,20 +66,11 @@ export class DeviceService {
     public loadUniqueIdentifier() {
         this.storage.get('identifier').then((val) => {
             if(val == null) {
-                this.identifier = this.randomString(16);
+                this.identifier = this.helpersService.randomString(16);
                 this.storage.set('identifier', this.identifier);
             }
             
             this.identifier = val;
         });
-    }
-
-    private randomString(length) {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for(var i = 0; i < length; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        return text;
     }
 }

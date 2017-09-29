@@ -30,6 +30,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { DeviceService } from "../providers/device.service";
 import { IonicStorageModule } from '@ionic/storage';
+import { HelpersService } from '../providers/helpers.service';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { IonicStorageModule } from '@ionic/storage';
     PropertyService,
     BrokerService,
     DeviceService,
+    HelpersService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })
