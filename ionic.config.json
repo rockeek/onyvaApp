@@ -1,5 +1,11 @@
 {
   "name": "dreamhouse-ionic3",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/",
+      "proxyUrl": "http://hphp-rockeek.c9users.io"
+    }
+  ]
 }
