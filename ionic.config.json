@@ -5,7 +5,7 @@
   "proxies": [
     {
       "path": "/",
-      "proxyUrl": "http://hphp-rockeek.c9users.io"
+      "proxyUrl": "http://boogy.ovh"
     }
   ]
 }
