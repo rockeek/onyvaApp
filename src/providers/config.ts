@@ -1,6 +1,6 @@
 export class Config {
     // PROD:
-    // static serverUrl = "http://boogy.ovh/onyva/";
+    // static serverUrl = "http://hphp-rockeek.c9users.io";
     // static serverUrl = "http://boogy.ovh/";
 
     //C9:
