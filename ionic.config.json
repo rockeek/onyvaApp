@@ -1,11 +1,5 @@
 {
   "name": "dreamhouse-ionic3",
   "app_id": "",
-  "type": "ionic-angular",
-  "proxies": [
-    {
-      "path": "/",
-      "proxyUrl": "http://boogy.ovh"
-    }
-  ]
+  "type": "ionic-angular"
 }
