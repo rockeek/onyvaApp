@@ -5,6 +5,6 @@ export class Config {
 
     //C9:
     // static serverUrl = "/";
-    static serverUrl = "http://boogy.ovh/";
+    static serverUrl = "http://boogy.ovh/onyvaapi/";
     static clientVersion = 1;
 }
