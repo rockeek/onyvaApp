@@ -10,8 +10,8 @@
 <ion-content no-bounce>
     <ion-slides>
         <ion-slide style="background-image: url('assets/img/slide_properties.jpg')">
-            <p>Are we in dev mode?</p>
-            <p *ngIf="isDev">dev mode</p>
+            <p *ngIf="!config.isDev">Welcome</p>
+            <p *ngIf="config.isDev">Dev mode</p>
         </ion-slide>
 
         <ion-slide style="background-image: url('assets/img/slide_brokers.jpg')">
