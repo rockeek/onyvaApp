@@ -2,36 +2,37 @@ import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import {Config} from './config';
 
-let propertiesURL = Config.serverUrl + 'properties/',
-    favoritesURL = propertiesURL + 'favorites/';
-
 @Injectable()
 export class PropertyService {
+    private propertiesURL = this.config.serverUrl + 'properties/';
+    private favoritesURL = this.propertiesURL + 'favorites/';
 
-    constructor(public http: Http) {
+    constructor(
+        private http: Http,
+        private config: Config) {
         this.http = http;
     }
 
     findAll() {
-        return this.http.get(propertiesURL)
+        return this.http.get(this.propertiesURL)
             .map(res => res.json())
             .toPromise();
     }
 
     findByName(key:string) {
-        return this.http.get(propertiesURL + "?key=" + key)
+        return this.http.get(this.propertiesURL + "?key=" + key)
             .map(res => res.json())
             .toPromise();
     }
 
     findById(id) {
-        return this.http.get(propertiesURL + id)
+        return this.http.get(this.propertiesURL + id)
             .map(res => res.json())
             .toPromise();
     }
 
     getFavorites() {
-        return this.http.get(favoritesURL)
+        return this.http.get(this.propertiesURL)
             .map(res => res.json())
             .toPromise();
     }
@@ -40,11 +41,11 @@ export class PropertyService {
         let body = JSON.stringify(property),
             headers = new Headers({'Content-Type': 'application/json'}),
             options = new RequestOptions({headers: headers});
-        return this.http.post(favoritesURL, body, options).toPromise();
+        return this.http.post(this.propertiesURL, body, options).toPromise();
     }
 
     unfavorite(favorite) {
-        return this.http.delete(favoritesURL + favorite.id)
+        return this.http.delete(this.propertiesURL + favorite.id)
             .map(res => res.json())
             .toPromise();
     }

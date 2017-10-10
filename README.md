@@ -59,3 +59,13 @@ Follow these instructions to run it with the REST data services:
 To avoid CORS issues, we implemented a proxy in ionic.config.json
 This way we can reach the REST services from another web server without having Cross Origin Resource Sharing issue.
 
+
+## Browser version
+
+To build for production
+    ```
+    ionic build browser --prod --release
+    ```
+
+
+Copy the output of www

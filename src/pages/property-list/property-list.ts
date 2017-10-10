@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Config, NavController} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {PropertyService} from '../../providers/property-service-mock';
 import {PropertyDetailPage} from '../property-detail/property-detail';
 import leaflet from 'leaflet';
@@ -16,7 +16,7 @@ export class PropertyListPage {
     map;
     markersGroup;
 
-    constructor(public navCtrl: NavController, public service: PropertyService, public config: Config) {
+    constructor(public navCtrl: NavController, public service: PropertyService) {
         this.findAll();
     }
 

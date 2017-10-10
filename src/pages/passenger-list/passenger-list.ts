@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Config, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { PassengerService } from '../../providers/passenger.service';
 import { PassengerDetailPage } from '../passenger-detail/passenger-detail';
 import { Passenger } from '../../app/passenger';
@@ -20,8 +20,7 @@ export class PassengerListPage implements OnInit {
     constructor(
         public navCtrl: NavController,
         public location: Location,
-        public passengerService: PassengerService,
-        public config: Config) {
+        public passengerService: PassengerService) {
     }
 
     ngOnInit(): void {

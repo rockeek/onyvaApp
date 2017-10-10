@@ -11,14 +11,17 @@ import {DeviceService} from './device.service';
 export class PassengerService {
     errorMessage: String;
 
-    constructor(private http: Http, private deviceService: DeviceService) { }
+    constructor(
+        private http: Http, 
+        private deviceService: DeviceService,
+        private config: Config) { }
 
     getPassengers(): Observable<Passenger[]> {
         let cpHeaders = new Headers({ 'Content-Type': 'application/json'}); // , 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'});
         let options = new RequestOptions({ headers: cpHeaders });
 
         let body = { identifier: this.deviceService.identifier };
-        let passengers = this.http.post(Config.serverUrl + "getpassenger", body, options)
+        let passengers = this.http.post(this.config.serverUrl + "getpassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
         return passengers;
@@ -30,7 +33,7 @@ export class PassengerService {
 
         let params = {identifier: this.deviceService.identifier, passengers: passengers};
         let body = JSON.stringify(params);
-        return this.http.post(Config.serverUrl + "setpassenger", body, options)
+        return this.http.post(this.config.serverUrl + "setpassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }
@@ -45,7 +48,7 @@ export class PassengerService {
 
         let params = {identifier: this.deviceService.identifier, passengerId: passenger.passengerId};
         let body = JSON.stringify(params);
-        return this.http.post(Config.serverUrl + "deletepassenger", body, options)
+        return this.http.post(this.config.serverUrl + "deletepassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
     }

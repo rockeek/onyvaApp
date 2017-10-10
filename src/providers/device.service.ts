@@ -28,7 +28,8 @@ export class DeviceService {
         private storage: Storage,
         private http: Http,
         private platform: Platform,
-        private helpersService: HelpersService) { 
+        private helpersService: HelpersService,
+        private config: Config) { 
     }
 
     public getOs(){
@@ -50,11 +51,11 @@ export class DeviceService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
      
-        let params = {identifier: this.identifier, version: Config.clientVersion, os: this.getOs()};
+        let params = {identifier: this.identifier, version: this.config.clientVersion, os: this.getOs()};
         let body = JSON.stringify(params);
         
         console.debug("Try to register device.");
-        this.http.post(Config.serverUrl + "device", body, options)
+        this.http.post(this.config.serverUrl + "device", body, options)
         .subscribe  ({
             complete: () => { 
                 this.isFullyRegistered = true;

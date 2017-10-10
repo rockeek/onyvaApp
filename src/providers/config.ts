@@ -1,10 +1,8 @@
 export class Config {
-    // PROD:
-    // static serverUrl = "http://hphp-rockeek.c9users.io";
-    // static serverUrl = "http://boogy.ovh/";
+    public isDev: boolean = ((<any>window)['IonicDevServer'] != undefined);
 
-    //C9:
-    // static serverUrl = "/";
-    static serverUrl = "http://boogy.ovh/onyvaapi/";
-    static clientVersion = 1;
+    //C9 or PROD:
+    public serverUrl = this.isDev ? "/onyvaapi/" : "http://boogy.fr/onyvaapi/";
+    
+    public clientVersion = 1;
 }

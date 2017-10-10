@@ -34,6 +34,8 @@ import { PassengerService } from '../providers/passenger.service';
 import { PassengerListPage } from '../pages/passenger-list/passenger-list';
 import { PassengerDetailPage } from '../pages/passenger-detail/passenger-detail';
 
+import { Config } from '../providers/config';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -79,6 +81,7 @@ import { PassengerDetailPage } from '../pages/passenger-detail/passenger-detail'
     BrokerService,
     DeviceService,
     HelpersService,
+    Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
   ]
 })
