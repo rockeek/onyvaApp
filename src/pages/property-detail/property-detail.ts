@@ -5,7 +5,10 @@ import {PropertyService} from '../../providers/property-service-mock';
 
 @Component({
     selector: 'page-property-detail',
-    templateUrl: 'property-detail.html'
+    templateUrl: 'property-detail.html',
+    providers: [
+        PropertyService
+    ]
 })
 export class PropertyDetailPage {
 

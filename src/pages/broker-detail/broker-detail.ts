@@ -4,7 +4,10 @@ import {BrokerService} from '../../providers/broker-service-mock';
 
 @Component({
     selector: 'page-broker-detail',
-    templateUrl: 'broker-detail.html'
+    templateUrl: 'broker-detail.html',
+    providers: [
+        BrokerService
+    ]
 })
 export class BrokerDetailPage {
 

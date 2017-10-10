@@ -7,7 +7,6 @@ import {PropertyListPage} from '../pages/property-list/property-list';
 import {VehiculeListPage} from '../pages/vehicule-list/vehicule-list';
 import {WelcomePage} from '../pages/welcome/welcome';
 import {AboutPage} from '../pages/about/about';
-
 import {BrokerListPage} from '../pages/broker-list/broker-list';
 import {PassengerListPage} from '../pages/passenger-list/passenger-list';
 
@@ -27,6 +26,7 @@ export class MyApp {
     rootPage: any = WelcomePage;
     appMenuItems: Array<MenuItem>;
     configMenuItems: Array<MenuItem>;
+    otherMenuItems: Array<MenuItem>;
 
     constructor(
         public platform: Platform, 
@@ -44,6 +44,10 @@ export class MyApp {
             {title: 'Passengers', component: PassengerListPage, icon: 'md-walk'},
             {title: 'Vehicules', component: VehiculeListPage, icon: 'md-car'},
             {title: 'Travels', component: WelcomePage, icon: 'md-time'}
+        ];
+
+        this.otherMenuItems = [
+            {title: 'About', component: AboutPage, icon: 'md-help'}
         ];
     }
 

@@ -5,7 +5,10 @@ import {BrokerDetailPage} from '../broker-detail/broker-detail';
 
 @Component({
     selector: 'page-broker-list',
-    templateUrl: 'broker-list.html'
+    templateUrl: 'broker-list.html',
+    providers: [
+        BrokerService
+    ]
 })
 export class BrokerListPage {
 

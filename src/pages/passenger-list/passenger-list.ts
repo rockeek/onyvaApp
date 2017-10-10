@@ -8,7 +8,10 @@ import leaflet from 'leaflet';
 
 @Component({
     selector: 'page-passenger-list',
-    templateUrl: 'passenger-list.html'
+    templateUrl: 'passenger-list.html',
+    providers: [
+        PassengerService
+    ]
 })
 export class PassengerListPage implements OnInit {
     errorMessage: String;

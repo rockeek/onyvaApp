@@ -6,7 +6,10 @@ import leaflet from 'leaflet';
 
 @Component({
     selector: 'page-property-list',
-    templateUrl: 'property-list.html'
+    templateUrl: 'property-list.html',
+    providers: [
+        PropertyService
+    ]
 })
 export class PropertyListPage {
 

@@ -5,7 +5,10 @@ import { Passenger } from '../../app/passenger';
 
 @Component({
     selector: 'page-passenger-detail',
-    templateUrl: 'passenger-detail.html'
+    templateUrl: 'passenger-detail.html',
+    providers: [
+        PassengerService
+    ]
 })
 export class PassengerDetailPage {
     callback: any;

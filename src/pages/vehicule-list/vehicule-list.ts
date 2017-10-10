@@ -2,13 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController } from 'ionic-angular';
 import { VehiculeService } from '../../providers/vehicule.service';
+// import { VehiculeData } from '../providers/vehicule-data';
 import { VehiculeDetailPage } from '../vehicule-detail/vehicule-detail';
 import { Vehicule } from '../../app/vehicule';
 import leaflet from 'leaflet';
 
 @Component({
     selector: 'page-vehicule-list',
-    templateUrl: 'vehicule-list.html'
+    templateUrl: 'vehicule-list.html',
+    providers: [
+        VehiculeService,
+        // Disable InMemoryWebApiModule to let real web service be reached
+        // InMemoryWebApiModule.forRoot(VehiculeData)
+    ],
+    entryComponents: [
+        VehiculeDetailPage        
+    ]
 })
 export class VehiculeListPage implements OnInit {
     errorMessage: String;
