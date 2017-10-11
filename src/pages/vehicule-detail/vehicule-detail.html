@@ -4,43 +4,40 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content class="vehicule">
+<ion-content>
     <ion-card>
         <ion-card-content>
-            <h2 id="vehiculeName">{{vehicule.name}}</h2>
-            <img class="photo" src="{{vehicule.photo}}"/>
-            <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
+                <h2 id="vehiculeName">{{displayedName}}</h2>
+                <img class="photo" src="{{photo}}"/>
+                <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
         </ion-card-content>
-        
-        <ion-list>
-            <ion-item>
-                <ion-icon name="" item-left></ion-icon>
-                <ion-label floating>Name</ion-label>
-                <ion-input [(ngModel)]="vehicule.name" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="" item-left></ion-icon>
-                <ion-label floating>Trademark</ion-label>
-                <ion-input [(ngModel)]="vehicule.trademark" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="" item-left></ion-icon>
-                <ion-label floating>Color</ion-label>
-                <ion-input [(ngModel)]="vehicule.color" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-icon name="" item-left></ion-icon>
-                <ion-label floating>Seats</ion-label>
-                <ion-input [(ngModel)]="vehicule.seats" type="number"></ion-input>
-            </ion-item>
-        </ion-list>
+        <form [formGroup]="form" (ngSubmit)="save(form.value)">
+                <ion-item margin-bottom>
+                    <ion-label>Name</ion-label>
+                    <ion-input type="text" formControlName="name"></ion-input>	    	
+                </ion-item>
+            
+                <ion-item margin-bottom>
+                    <ion-label>Trademark</ion-label>
+                    <ion-input type="text" formControlName="trademark"></ion-input>
+                </ion-item>
+                        
+                <ion-item margin-bottom>
+                    <ion-label>Color</ion-label>
+                    <ion-input type="text" formControlName="color"></ion-input>
+                </ion-item>
+
+                <ion-item margin-bottom>
+                    <ion-label>Seats</ion-label>
+                    <ion-input type="number" formControlName="seats"></ion-input>
+                </ion-item>
+
+                <ion-item margin-bottom>
+                    <button ion-button color="primary" 
+                        text-center
+                        block
+                        [disabled]="!form.valid">Save</button>
+                </ion-item>
+            </form>
     </ion-card>
 </ion-content>
-
-<ion-footer>
-
-    <ion-buttons end>
-        <button ion-button [disabled]="isLoading" (click)="save()">Save</button>
-    </ion-buttons>
-
-</ion-footer>
