@@ -1,33 +1,32 @@
 <ion-header>
-        <ion-navbar>
-            <button ion-button menuToggle>
-                <ion-icon name="menu"></ion-icon>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Passengers</ion-title>
+    </ion-navbar>
+</ion-header>
+    
+<ion-content>
+    <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
+    <ion-list>
+        <ion-item-sliding *ngFor="let passenger of passengers">
+        <!-- Button item with an icon on the left -->
+            <button ion-item (click)="open(passenger)">
+                <ion-icon name="walk" item-start></ion-icon>
+                {{passenger.name}}
             </button>
-            <ion-title>Passengers</ion-title>
-        </ion-navbar>
-    </ion-header>
-    
-    <ion-content class="passenger-list">
-            <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
-            <ion-list>
-                <ion-item-sliding *ngFor="let passenger of passengers">
-                    <button ion-item (click)="open(passenger)">
-                        <ion-thumbnail item-left>
-                            <!-- <img src="assets"/> -->
-                        </ion-thumbnail>
-                        <h2>{{passenger.name}}</h2>
-                    </button>
-                    <ion-item-options>
-                        <button danger (click)="delete(passenger)">Delete</button>
-                    </ion-item-options>
-                </ion-item-sliding>
-            </ion-list>
-            <div *ngIf="passengerName" [ngClass]="'success'"> {{passengerName}} Added. </div>
-            <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
-        </ion-content>
-    
-    <ion-footer>        
-        <ion-buttons end>
-            <button ion-button [disabled]="isLoading" (click)="add()">Add</button>
-        </ion-buttons>
-    </ion-footer>
+            <ion-item-options>
+                <button danger (click)="delete(passenger)">Delete</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <div *ngIf="passengerName" [ngClass]="'success'"> {{passengerName}} Added. </div>
+    <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
+</ion-content>
+
+<ion-footer>        
+    <ion-buttons end>
+        <button ion-button [disabled]="isLoading" (click)="add()">Add</button>
+    </ion-buttons>
+</ion-footer>
