@@ -41,9 +41,9 @@ export class MyApp {
 
         this.configMenuItems = [
             {title: 'Clubs', component: BrokerListPage, icon: 'md-person'},
-            {title: 'Passengers', component: PassengerListPage, icon: 'md-walk'},
+            {title: 'Travels', component: WelcomePage, icon: 'md-time'},
             {title: 'Vehicules', component: VehiculeListPage, icon: 'md-car'},
-            {title: 'Travels', component: WelcomePage, icon: 'md-time'}
+            {title: 'Passengers', component: PassengerListPage, icon: 'md-walk'}
         ];
 
         this.otherMenuItems = [

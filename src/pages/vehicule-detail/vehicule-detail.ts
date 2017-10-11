@@ -27,13 +27,13 @@ export class VehiculeDetailPage {
         public navCtrl: NavController,
         public navParams: NavParams,
         public service: VehiculeService,
-        private _FB: FormBuilder) {
+        private formBuilder: FormBuilder) {
         // Copy the passed object to break the bindings.
         // If we don't, when we go back, the vehicule appears modified.
         this.vehicule = Object.assign({}, this.navParams.get('vehicule'));
         this.callback = this.navParams.get('callback');
         this.displayedName = this.vehicule.vehiculeId == null ? '[new]' : this.vehicule.name;
-        this.form = _FB.group({
+        this.form = formBuilder.group({
             'vehiculeId': [this.vehicule.vehiculeId],
             'name': [this.vehicule.name, Validators.required],
             'trademark' : [this.vehicule.trademark, Validators.required],

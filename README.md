@@ -67,5 +67,4 @@ To build for production
     ionic build browser --prod --release
     ```
 
-
 Copy the output of www

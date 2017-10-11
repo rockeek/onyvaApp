@@ -12,32 +12,32 @@
                 <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
         </ion-card-content>
         <form [formGroup]="form" (ngSubmit)="save(form.value)">
-                <ion-item margin-bottom>
-                    <ion-label>Name</ion-label>
-                    <ion-input type="text" formControlName="name"></ion-input>	    	
-                </ion-item>
-            
-                <ion-item margin-bottom>
-                    <ion-label>Trademark</ion-label>
-                    <ion-input type="text" formControlName="trademark"></ion-input>
-                </ion-item>
-                        
-                <ion-item margin-bottom>
-                    <ion-label>Color</ion-label>
-                    <ion-input type="text" formControlName="color"></ion-input>
-                </ion-item>
+            <ion-item margin-bottom>
+                <ion-label>Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>	    	
+            </ion-item>
+        
+            <ion-item margin-bottom>
+                <ion-label>Trademark</ion-label>
+                <ion-input type="text" formControlName="trademark"></ion-input>
+            </ion-item>
+                    
+            <ion-item margin-bottom>
+                <ion-label>Color</ion-label>
+                <ion-input type="text" formControlName="color"></ion-input>
+            </ion-item>
 
-                <ion-item margin-bottom>
-                    <ion-label>Seats</ion-label>
-                    <ion-input type="number" formControlName="seats"></ion-input>
-                </ion-item>
+            <ion-item margin-bottom>
+                <ion-label>Seats</ion-label>
+                <ion-input type="number" formControlName="seats"></ion-input>
+            </ion-item>
 
-                <ion-item margin-bottom>
-                    <button ion-button color="primary" 
-                        text-center
-                        block
-                        [disabled]="!form.valid">Save</button>
-                </ion-item>
-            </form>
+            <ion-item margin-bottom>
+                <button ion-button color="primary" 
+                    text-center
+                    block
+                    [disabled]="!form.valid">Save</button>
+            </ion-item>
+        </form>
     </ion-card>
 </ion-content>
