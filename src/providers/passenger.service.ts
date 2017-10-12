@@ -62,6 +62,12 @@ export class PassengerService {
     private extractData(res: Response) {
         let body = res.json();
         let passengers = body || {};
+
+        // Set default image for each vehicule while server does not implement that.
+        passengers.forEach(passenger => {
+            passenger.photo = "assets/img/passenger-96.png";
+        });
+
         return passengers;
     }
 

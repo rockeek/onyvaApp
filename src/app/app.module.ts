@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { MyApp } from './app.component';
+import { Onyva } from './onyva';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { PassengerListPage } from '../pages/passenger-list/passenger-list';
@@ -28,7 +28,7 @@ import { Config } from '../providers/config';
 
 @NgModule({
   declarations: [
-    MyApp,
+    Onyva,
     WelcomePage,
     AboutPage,
     VehiculeListPage,
@@ -43,12 +43,12 @@ import { Config } from '../providers/config';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(Onyva),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    Onyva,
     WelcomePage,
     AboutPage,
     VehiculeListPage,

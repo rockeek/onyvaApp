@@ -12,8 +12,10 @@
     <ion-list>
         <ion-item-sliding *ngFor="let passenger of passengers">
             <button ion-item (click)="open(passenger)">
-                <ion-icon name="walk" item-start></ion-icon>
-                {{passenger.name}}
+                <ion-thumbnail item-left>
+                    <img src="{{passenger.photo}}"/>
+                </ion-thumbnail>
+                <h2>{{passenger.name}}</h2>
             </button>
             <ion-item-options>
                 <button danger (click)="delete(passenger)">Delete</button>

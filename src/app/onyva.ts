@@ -19,9 +19,9 @@ export interface MenuItem {
 }
 
 @Component({
-    templateUrl: 'app.html'
+    templateUrl: 'onyva.html'
 })
-export class MyApp {
+export class Onyva {
     @ViewChild(Nav) nav: Nav;
     rootPage: any = WelcomePage;
     appMenuItems: Array<MenuItem>;
@@ -40,7 +40,7 @@ export class MyApp {
         ];
 
         this.configMenuItems = [
-            {title: 'Clubs', component: BrokerListPage, icon: 'md-person'},
+            {title: 'Clubs', component: BrokerListPage, icon: 'md-contacts'},
             {title: 'Travels', component: WelcomePage, icon: 'md-time'},
             {title: 'Vehicules', component: VehiculeListPage, icon: 'md-car'},
             {title: 'Passengers', component: PassengerListPage, icon: 'md-walk'}

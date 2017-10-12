@@ -7,9 +7,9 @@
 <ion-content>
     <ion-card>
         <ion-card-content>
-                <h2 id="vehiculeName">{{displayedName}}</h2>
-                <img class="photo" src="{{photo}}"/>
-                <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
+            <h2 id="vehiculeName">{{displayedName}}</h2>
+            <img class="photo" src="{{photo}}"/>
+            <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
         </ion-card-content>
         <form [formGroup]="form" (ngSubmit)="save(form.value)">
             <ion-item margin-bottom>

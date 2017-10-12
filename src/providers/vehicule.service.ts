@@ -65,7 +65,7 @@ export class VehiculeService {
 
         // Set default image for each vehicule while server does not implement that.
         vehicules.forEach(vehicule => {
-            vehicule.photo = "assets/img/onyva-logo.png";
+            vehicule.photo = "assets/img/vehicule-128.png";
         });
 
         return vehicules;
