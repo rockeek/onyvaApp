@@ -16,20 +16,32 @@
                 <ion-label>Name</ion-label>
                 <ion-input type="text" formControlName="name"></ion-input>	    	
             </ion-item>
+            <ion-item class="validation" *ngIf="!form.get('name').valid && (form.get('name').dirty || form.get('name').touched)">
+                <p>Give a nickname to your beloved vehicule.</p>
+            </ion-item>
         
             <ion-item margin-bottom>
                 <ion-label>Trademark</ion-label>
                 <ion-input type="text" formControlName="trademark"></ion-input>
+            </ion-item>
+            <ion-item class="validation" *ngIf="!form.get('trademark').valid && (form.get('trademark').dirty || form.get('trademark').touched)">
+                <p>What's your vehicule trademark?</p>
             </ion-item>
                     
             <ion-item margin-bottom>
                 <ion-label>Color</ion-label>
                 <ion-input type="text" formControlName="color"></ion-input>
             </ion-item>
+            <ion-item class="validation" *ngIf="!form.get('color').valid && (form.get('color').dirty || form.get('color').touched)">
+                <p>You vehicule is transparent, really? Waw!</p>
+            </ion-item>
 
             <ion-item margin-bottom>
                 <ion-label>Seats</ion-label>
                 <ion-input type="number" formControlName="seats"></ion-input>
+            </ion-item>
+            <ion-item class="validation" *ngIf="form.get('seats').hasError('invalidSeats') && (form.get('seats').dirty || form.get('seats').touched)">
+                <ion-label>Your vehicule has no seat really?</ion-label>
             </ion-item>
 
             <ion-item margin-bottom>

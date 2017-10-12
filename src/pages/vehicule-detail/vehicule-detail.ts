@@ -7,6 +7,7 @@ import {
 	FormGroup,
   	Validators
 } from '@angular/forms';
+import {CustomValidators} from '../../providers/custom-validators';
 
 @Component({
     selector: 'page-vehicule-detail',
@@ -38,7 +39,7 @@ export class VehiculeDetailPage {
             'name': [this.vehicule.name, Validators.required],
             'trademark' : [this.vehicule.trademark, Validators.required],
             'color' : [this.vehicule.color, Validators.required],
-            'seats' : [this.vehicule.seats, Validators.required]
+            'seats' : [this.vehicule.seats, CustomValidators.invalidSeats]
         });
     }
 
