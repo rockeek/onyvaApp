@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar [hideBackButton]="isLoading">
+        <ion-title>Club</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <h2 id="clubName">{{club.name}}</h2>
+            <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
+        </ion-card-content>
+        
+        <form [formGroup]="form" (ngSubmit)="save(form.value)">
+            <ion-item margin-bottom>
+                <ion-label>Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>	    	
+            </ion-item>
+        
+            <ion-item margin-bottom>
+                <button ion-button color="primary"
+                    text-center
+                    block
+                    [disabled]="!form.valid">Save</button>
+            </ion-item>
+        </form>
+    </ion-card>
+</ion-content>

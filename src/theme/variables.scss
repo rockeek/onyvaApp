@@ -75,3 +75,18 @@ $toolbar-md-background:                   color($colors, primary);
 
 @import "roboto";
 @import "noto-sans";
+
+h2 {
+  color: #049904;
+}
+.success{
+  color: green;
+  font-size: 20px;
+}
+.error{
+  color: red;
+  font-size: 20px;
+}
+.center{
+  float: center;
+}

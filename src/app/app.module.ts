@@ -6,6 +6,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Onyva } from './onyva';
 
 import { WelcomePage } from '../pages/welcome/welcome';
+import { ClubListPage } from '../pages/club-list/club-list';
+import { ClubDetailPage } from '../pages/club-detail/club-detail';
 import { PassengerListPage } from '../pages/passenger-list/passenger-list';
 import { PassengerDetailPage } from '../pages/passenger-detail/passenger-detail';
 import { VehiculeListPage } from '../pages/vehicule-list/vehicule-list';
@@ -21,6 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { DeviceService } from "../providers/device.service";
+import { ClubService } from "../providers/club.service";
 import { HelpersService } from '../providers/helpers.service';
 
 
@@ -33,6 +36,8 @@ import { Config } from '../providers/config';
     AboutPage,
     VehiculeListPage,
     VehiculeDetailPage,
+    ClubListPage,
+    ClubDetailPage,
     PassengerListPage,
     PassengerDetailPage,
     PropertyListPage,
@@ -53,6 +58,8 @@ import { Config } from '../providers/config';
     AboutPage,
     VehiculeListPage,
     VehiculeDetailPage,
+    ClubListPage,
+    ClubDetailPage,
     PassengerListPage,
     PassengerDetailPage,
     PropertyListPage,
@@ -64,6 +71,7 @@ import { Config } from '../providers/config';
     StatusBar,
     SplashScreen,
     DeviceService,
+    ClubService,
     HelpersService,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

@@ -12,7 +12,7 @@ export class PassengerService {
     errorMessage: String;
 
     constructor(
-        private http: Http, 
+        private http: Http,
         private deviceService: DeviceService,
         private config: Config) { }
 
@@ -63,7 +63,7 @@ export class PassengerService {
         let body = res.json();
         let passengers = body || {};
 
-        // Set default image for each vehicule while server does not implement that.
+        // Set default image
         passengers.forEach(passenger => {
             passenger.photo = "assets/img/passenger-96.png";
         });

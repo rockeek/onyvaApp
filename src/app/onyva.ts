@@ -7,10 +7,11 @@ import {PropertyListPage} from '../pages/property-list/property-list';
 import {VehiculeListPage} from '../pages/vehicule-list/vehicule-list';
 import {WelcomePage} from '../pages/welcome/welcome';
 import {AboutPage} from '../pages/about/about';
-import {BrokerListPage} from '../pages/broker-list/broker-list';
 import {PassengerListPage} from '../pages/passenger-list/passenger-list';
+import {ClubListPage} from '../pages/club-list/club-list';
 
 import {DeviceService} from '../providers/device.service';
+import {ClubService} from '../providers/club.service';
 
 export interface MenuItem {
     title: string;
@@ -32,7 +33,8 @@ export class Onyva {
         public platform: Platform, 
         public statusBar: StatusBar,
         public splashScreen: SplashScreen,
-        public deviceService: DeviceService) {
+        public deviceService: DeviceService,
+        public clubService: ClubService) {
 
         this.initializeApp();
         this.appMenuItems = [
@@ -40,7 +42,7 @@ export class Onyva {
         ];
 
         this.configMenuItems = [
-            {title: 'Clubs', component: BrokerListPage, icon: 'md-contacts'},
+            {title: 'Clubs', component: ClubListPage, icon: 'md-contacts'},
             {title: 'Travels', component: WelcomePage, icon: 'md-time'},
             {title: 'Vehicules', component: VehiculeListPage, icon: 'md-car'},
             {title: 'Passengers', component: PassengerListPage, icon: 'md-walk'}
@@ -65,5 +67,8 @@ export class Onyva {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
+
+        // for debug only
+        this.clubService.setDummyStoredClubs();
     }
 }

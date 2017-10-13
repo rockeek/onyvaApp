@@ -3,26 +3,23 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Vehicules</ion-title>
+        <ion-title>Clubs</ion-title>
     </ion-navbar>
 </ion-header>
-
-<!--https://www.joshmorony.com/an-in-depth-look-at-the-grid-system-in-ionic-2/-->
-<ion-content class="vehicule-list">
+    
+<ion-content>
     <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
     <ion-list>
-        <ion-item-sliding *ngFor="let vehicule of vehicules">
-            <button ion-item (click)="open(vehicule)">
+        <ion-item-sliding *ngFor="let club of clubs">
+            <button ion-item (click)="open(club)">
                 <ion-thumbnail item-left>
-                    <img src="{{vehicule.photo}}"/>
+                    <img src="{{club.photo}}"/>
                 </ion-thumbnail>
-                <h2>{{vehicule.name}}</h2>
-                <p>{{vehicule.trademark}}</p>
-                <p>{{vehicule.color}}</p>
-                <p>{{vehicule.seats}} seats</p>
+                <h2>{{club.name}}</h2>
+                <p>{{club.clubId}}</p>
             </button>
             <ion-item-options>
-                <button danger (click)="delete(vehicule)">Delete</button>
+                <button danger (click)="delete(club)">Delete</button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
