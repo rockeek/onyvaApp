@@ -30,31 +30,18 @@ export class ClubService {
     }
     
     /**
-     * Load unvalidated clubs from storage.
+     * Load validated clubs from storage and validate them.
      */
     public loadStoredClubs(): Promise<void> {
-        return this.storage.get('clubs').then((val) => {
-            this.storedClubs = val;
-        });
-    }
+        var promise = this.storage.get('clubs').then((val) => {
+            this.validateClubs(val).subscribe(
+                _clubs => {
+                    this.storage.set('clubs', _clubs);
+                    this.storedClubs = _clubs;
+                }
+            )});
 
-    /**
-     * Validate stored clubs against server. Validated clubs are stored back.
-     * 
-     * @param clubs Clubs to validate. They usually come from storage
-     */
-    public validateClubs(clubs: Club[]): Observable<Club[]> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let params = {identifier: this.deviceService.identifier, clubs: clubs};
-        let body = JSON.stringify(params);
-        var response = this.http.post(this.config.serverUrl + "club", body, options)
-            .map(this.extractData)
-            .catch(this.handleErrorObservable);
-
-        response.subscribe(_clubs => this.storedClubs = _clubs);
-
-        return response;
+        return promise;
     }
 
     //----------------
@@ -99,6 +86,10 @@ export class ClubService {
         return Observable.throw(error.message || error);
     }
 
+    /**
+     * For test purposes only.
+     * Create dummy clubs for the very first start of app.
+     */
     public setDummyStoredClubs() {
         let clubs = [
             {clubId: 10001, password: "boing", name: "", photo: "assets/img/club-100.png"},
@@ -108,5 +99,22 @@ export class ClubService {
         ];
         
         this.storage.set('clubs', clubs);
+    }
+
+    /**
+     * Validate stored clubs against server. Validated clubs are stored back.
+     * 
+     * @param clubs Clubs to validate. They usually come from storage
+     */
+    private validateClubs(clubs: Club[]): Observable<Club[]> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let params = {identifier: this.deviceService.identifier, clubs: clubs};
+        let body = JSON.stringify(params);
+        var response = this.http.post(this.config.serverUrl + "club", body, options)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
+
+        return response;
     }
 }

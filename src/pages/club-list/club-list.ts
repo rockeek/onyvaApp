@@ -8,10 +8,7 @@ import leaflet from 'leaflet';
 
 @Component({
     selector: 'page-club-list',
-    templateUrl: 'club-list.html',
-    providers: [
-        ClubService
-    ]
+    templateUrl: 'club-list.html'
 })
 export class ClubListPage implements OnInit {
     errorMessage: String;
@@ -31,11 +28,7 @@ export class ClubListPage implements OnInit {
     }
  
     fetchClubs(): void {
-        this.clubService.loadStoredClubs().then((val) => {
-            this.clubService.validateClubs(this.clubService.storedClubs)
-            .subscribe(_clubs =>
-                this.clubs = _clubs)
-            });
+        this.clubs = this.clubService.storedClubs;
     }
     //-----------------------------------
 

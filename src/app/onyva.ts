@@ -60,6 +60,11 @@ export class Onyva {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceService.loadUniqueIdentifier();
+
+            // for debug only. To initialize clubs when there are none.
+            // this.clubService.setDummyStoredClubs();
+            
+            this.clubService.loadStoredClubs();
         });
     }
 
@@ -67,8 +72,5 @@ export class Onyva {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
-
-        // for debug only
-        this.clubService.setDummyStoredClubs();
     }
 }
