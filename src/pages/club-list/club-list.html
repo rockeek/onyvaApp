@@ -15,8 +15,13 @@
                 <ion-thumbnail item-left>
                     <img src="{{club.photo}}"/>
                 </ion-thumbnail>
-                <h2>{{club.name}}</h2>
+
+                <h2 *ngIf="!club.isInvalid">{{club.name}}</h2>
+                <p *ngIf="club.isInvalid" color="secondary">Club is not valid</p>
+
                 <p>{{club.clubId}}</p>
+                
+                <div *ngIf="club.isInvalid" class="error">Password for this club is wrong.</div>
             </button>
             <ion-item-options>
                 <button danger (click)="delete(club)">Delete</button>
