@@ -62,8 +62,10 @@ export class Onyva {
             this.deviceService.loadUniqueIdentifier();
 
             // for debug only. To initialize clubs when there are none.
-            // this.clubService.setDummyStoredClubs();
+            // this.clubService.setDummyStoredClubs().then(
+            //     () => this.clubService.loadStoredClubs());
             
+            // OR in prod:
             this.clubService.loadStoredClubs();
         });
     }

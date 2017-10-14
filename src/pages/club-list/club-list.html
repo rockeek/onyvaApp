@@ -8,7 +8,7 @@
 </ion-header>
     
 <ion-content>
-    <ion-spinner *ngIf="isLoading" class="center" icon="spiral"></ion-spinner>
+    <ion-spinner *ngIf="this.clubService.isLoading" class="center" icon="spiral"></ion-spinner>
     <ion-list>
         <ion-item-sliding *ngFor="let club of clubs">
             <button ion-item (click)="open(club)">

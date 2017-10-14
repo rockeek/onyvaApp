@@ -11,6 +11,7 @@ import {DeviceService} from './device.service';
 
 @Injectable()
 export class ClubService {
+    public isLoading: boolean;
     private _storedClubs: Club[];
     errorMessage: String;
 
@@ -33,13 +34,19 @@ export class ClubService {
      * Load validated clubs from storage and validate them.
      */
     public loadStoredClubs(): Promise<void> {
+        this.isLoading = true;
         var promise = this.storage.get('clubs').then((val) => {
-            this.validateClubs(val).subscribe(
-                _clubs => {
-                    this.storage.set('clubs', _clubs);
-                    this.storedClubs = _clubs;
-                }
-            )});
+            if(val != null)
+            {
+                this.validateClubs(val).subscribe(
+                    _clubs => {
+                        this.storage.set('clubs', _clubs);
+                        this.storedClubs = _clubs;
+                        this.isLoading = false;
+                    }
+                )
+            }
+        });
 
         return promise;
     }
@@ -90,7 +97,7 @@ export class ClubService {
      * For test purposes only.
      * Create dummy clubs for the very first start of app.
      */
-    public setDummyStoredClubs() {
+    public setDummyStoredClubs(): Promise<any> {
         let clubs = [
             {clubId: 10001, password: "boing", name: "", photo: "assets/img/club-100.png"},
             {clubId: 10010, password: "blabla", name: "Deuxième", photo: "assets/img/club-100.png"},
@@ -98,7 +105,9 @@ export class ClubService {
             {clubId: null, password: "newClubPassword", name: "Dorothée club", photo: "assets/img/club-100.png"}
         ];
         
-        this.storage.set('clubs', clubs);
+        // to reset clubs:
+        // clubs = [];
+        return this.storage.set('clubs', clubs);
     }
 
     /**
