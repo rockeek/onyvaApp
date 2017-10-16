@@ -60,14 +60,16 @@ export class Onyva {
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
             this.deviceService.loadUniqueIdentifier();
+                
+        }
 
             // for debug only. To initialize clubs when there are none.
             // this.clubService.setDummyStoredClubs().then(
             //     () => this.clubService.loadStoredClubs());
             
             // OR in prod:
-            this.clubService.loadStoredClubs();
-        });
+            // this.clubService.loadStoredClubs();
+        );
     }
 
     openPage(page) {

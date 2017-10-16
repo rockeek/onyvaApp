@@ -21,7 +21,6 @@ export class DeviceService {
     @Input('identifier')
     set identifier(value: string) {
         this._identifier = value;
-        this.registerDevice();
     }
 
     constructor(
@@ -43,7 +42,7 @@ export class DeviceService {
         return this._os;
     }
 
-    public registerDevice(){
+    public registerDevice(): Observable<any>{
         if(this.isFullyRegistered){
             return;
         }
@@ -55,23 +54,50 @@ export class DeviceService {
         let body = JSON.stringify(params);
         
         console.debug("Try to register device.");
-        this.http.post(this.config.serverUrl + "device", body, options)
-        .subscribe  ({
+
+        // var a = Observable.interval(5000).takeUntil(this.isFullyRegistered);
+        // a.flatMap(() => this.http.post(this.config.serverUrl + "device", body, options));
+
+        // a.subscribe(res => {
+        //     console.log(res);
+        //     this.isFullyRegistered = true;
+        //     console.debug(body + " successfully registered.");
+            
+        // });
+
+        // return a;
+
+        var observablePost = this.http.post(this.config.serverUrl + "device", body, options);
+        
+        observablePost.subscribe  ({
             complete: () => { 
                 this.isFullyRegistered = true;
-                console.debug(body + " successfully registered."); },
-            error: () => setTimeout(() => this.registerDevice(), 5000) // try again 5 sec later
+                console.debug(body + " successfully registered.");
+            observablePost },
+            error: () => setTimeout(() => this.registerDevice().subscribe(() => console.debug("FULLY REGISTERED")), 5000) // try again 5 sec later
         });
+
+        return observablePost;
     }
 
-    public loadUniqueIdentifier() {
-        this.storage.get('identifier').then((val) => {
+    /**
+     * Get unique ID from storage.
+     * 
+     * If it exists register the device.
+     * It not, create an ID, store it and register the device.
+     * 
+     */
+    public loadUniqueIdentifier(): Promise<any> {
+        return this.storage.get('identifier').then((val) => {
             if(val == null) {
                 this.identifier = this.helpersService.randomString(16);
                 this.storage.set('identifier', this.identifier);
             }
-            
-            this.identifier = val;
+            else {
+                this.identifier = val;
+            }
+
+            this.registerDevice().subscribe(() => console.debug("FULLY REGISTERED"));
         });
     }
 }
