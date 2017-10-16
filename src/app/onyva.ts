@@ -59,17 +59,20 @@ export class Onyva {
             // Here you can do any higher level native things you might need.
             this.statusBar.styleLightContent();
             this.splashScreen.hide();
-            this.deviceService.loadUniqueIdentifier();
-                
-        }
+            this.deviceService.loadUniqueIdentifier(() => this.onFullyRegistered());
+        });
+    }
 
-            // for debug only. To initialize clubs when there are none.
-            // this.clubService.setDummyStoredClubs().then(
-            //     () => this.clubService.loadStoredClubs());
-            
-            // OR in prod:
-            // this.clubService.loadStoredClubs();
-        );
+    onFullyRegistered() {
+        console.debug("Entered onFullyRegistered");
+
+
+        // for debug only. To initialize clubs when there are none.
+        // this.clubService.setDummyStoredClubs().then(
+        //     () => this.clubService.loadStoredClubs());
+        
+        // OR in prod:
+        this.clubService.loadStoredClubs();
     }
 
     openPage(page) {

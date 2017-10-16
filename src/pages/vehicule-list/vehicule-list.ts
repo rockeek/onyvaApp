@@ -38,8 +38,6 @@ export class VehiculeListPage implements OnInit {
 
     saveCallback = (vehicule) => {
         return new Promise((resolve, reject) => {
-            console.debug('Back in the list page.');
-
             this.vehiculeService.updateVehicules([vehicule])
                 .subscribe(vehicules => { 
                     this.vehicules = vehicules;

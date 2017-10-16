@@ -34,8 +34,6 @@ export class ClubListPage implements OnInit {
 
     saveCallback = (club) => {
         return new Promise((resolve, reject) => {
-            console.debug('Back in the list page.');
-
             this.clubService.updateClubs([club])
                 .subscribe(clubs => { 
                     this.clubs = clubs;

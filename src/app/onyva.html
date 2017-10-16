@@ -4,6 +4,10 @@
 
     <img src="assets/img/onyva-logo.png" class="menu-logo" />
 
+    <ion-list *ngIf="!this.deviceService.isFullyRegistered">
+      <div class="error blink_me">Connecting...</div>
+    </ion-list>
+
     <ion-list>
       <button [disabled]="!deviceService.isFullyRegistered" menuClose ion-item *ngFor="let menuItem of appMenuItems" (click)="openPage(menuItem)">
         <ion-icon item-left [name]="menuItem.icon"></ion-icon>

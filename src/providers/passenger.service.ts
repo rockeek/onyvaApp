@@ -72,7 +72,7 @@ export class PassengerService {
     }
 
     private handleErrorObservable(error: Response | any) {
-        console.error(error.message || error);
-        return Observable.throw(error.message || error);
+        console.error("Passenger service: " + (error.message || error));
+        return Observable.throw("Passenger service: " + (error.message || error));
     }
 }

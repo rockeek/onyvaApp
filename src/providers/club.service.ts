@@ -42,6 +42,7 @@ export class ClubService {
                     _clubs => {
                         this.storage.set('clubs', _clubs);
                         this.storedClubs = _clubs;
+                        console.debug("Clubs loaded.");
                         this.isLoading = false;
                     }
                 )
@@ -89,8 +90,8 @@ export class ClubService {
     }
 
     private handleErrorObservable(error: Response | any) {
-        console.error(error.message || error);
-        return Observable.throw(error.message || error);
+        console.error("Club service: " + (error.message || error));
+        return Observable.throw("Club service: " + (error.message || error));
     }
 
     /**

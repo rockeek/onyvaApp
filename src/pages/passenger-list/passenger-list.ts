@@ -32,8 +32,6 @@ export class PassengerListPage implements OnInit {
 
     saveCallback = (passenger) => {
         return new Promise((resolve, reject) => {
-            console.debug('Back in the list page.');
-
             this.passengerService.updatePassengers([passenger])
                 .subscribe(passengers => { 
                     this.passengers = passengers;

@@ -88,3 +88,10 @@ h2 {
 .center{
   float: center;
 }
+// To make an element blink with a nice fade
+.blink_me {
+  animation: blinker 2s linear infinite;
+}
+@keyframes blinker {  
+  50% { opacity: 0; }
+}

@@ -42,44 +42,6 @@ export class DeviceService {
         return this._os;
     }
 
-    public registerDevice(): Observable<any>{
-        if(this.isFullyRegistered){
-            return;
-        }
-
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-     
-        let params = {identifier: this.identifier, version: this.config.clientVersion, os: this.getOs()};
-        let body = JSON.stringify(params);
-        
-        console.debug("Try to register device.");
-
-        // var a = Observable.interval(5000).takeUntil(this.isFullyRegistered);
-        // a.flatMap(() => this.http.post(this.config.serverUrl + "device", body, options));
-
-        // a.subscribe(res => {
-        //     console.log(res);
-        //     this.isFullyRegistered = true;
-        //     console.debug(body + " successfully registered.");
-            
-        // });
-
-        // return a;
-
-        var observablePost = this.http.post(this.config.serverUrl + "device", body, options);
-        
-        observablePost.subscribe  ({
-            complete: () => { 
-                this.isFullyRegistered = true;
-                console.debug(body + " successfully registered.");
-            observablePost },
-            error: () => setTimeout(() => this.registerDevice().subscribe(() => console.debug("FULLY REGISTERED")), 5000) // try again 5 sec later
-        });
-
-        return observablePost;
-    }
-
     /**
      * Get unique ID from storage.
      * 
@@ -87,8 +49,8 @@ export class DeviceService {
      * It not, create an ID, store it and register the device.
      * 
      */
-    public loadUniqueIdentifier(): Promise<any> {
-        return this.storage.get('identifier').then((val) => {
+    public loadUniqueIdentifier(callback: Function) {
+        this.storage.get('identifier').then((val) => {
             if(val == null) {
                 this.identifier = this.helpersService.randomString(16);
                 this.storage.set('identifier', this.identifier);
@@ -97,7 +59,45 @@ export class DeviceService {
                 this.identifier = val;
             }
 
-            this.registerDevice().subscribe(() => console.debug("FULLY REGISTERED"));
+            var timer = Observable.timer(0, 5000).subscribe(() => {
+                this.registerDevice().subscribe((val) => {
+                    if(val){
+                        this.isFullyRegistered = true;
+                        callback();
+                        timer.unsubscribe();
+                    }
+                });
+            });
         });
+    }
+
+    private registerDevice(): Observable<any>{
+        // if(this.isFullyRegistered){
+        //     return;
+        // }
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let params = {identifier: this.identifier, version: this.config.clientVersion, os: this.getOs()};
+        let body = JSON.stringify(params);
+        
+        console.debug("Try to register device.");
+
+        var observablePost = this.http.post(this.config.serverUrl + "device", body, options);
+        
+        observablePost.subscribe ({
+            complete: () => { 
+                // this.isFullyRegistered = true;
+                console.debug("Device successfully registered. " + body);
+                return true;
+                // observablePost
+            },
+            error: () => {
+                console.debug("Failed to register device.");
+                return false;
+            }
+        });
+
+        return observablePost;
     }
 }
