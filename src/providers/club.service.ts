@@ -35,7 +35,7 @@ export class ClubService {
      */
     public loadStoredClubs(): Promise<void> {
         this.isLoading = true;
-        var promise = this.storage.get('clubs').then((val) => {
+        return this.storage.get('clubs').then((val) => {
             if(val != null)
             {
                 this.validateClubs(val).subscribe(
@@ -48,8 +48,6 @@ export class ClubService {
                 )
             }
         });
-
-        return promise;
     }
 
     //----------------

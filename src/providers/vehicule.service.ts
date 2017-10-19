@@ -21,10 +21,9 @@ export class VehiculeService {
         let options = new RequestOptions({ headers: cpHeaders });
 
         let body = { identifier: this.deviceService.identifier };
-        let vehicules = this.http.post(this.config.serverUrl + "getvehicule", body, options)
+        return this.http.post(this.config.serverUrl + "getvehicule", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
-        return vehicules;
     }
 
     updateVehicules(vehicules: Vehicule[]): Observable<Vehicule[]> {

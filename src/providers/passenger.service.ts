@@ -21,10 +21,9 @@ export class PassengerService {
         let options = new RequestOptions({ headers: cpHeaders });
 
         let body = { identifier: this.deviceService.identifier };
-        let passengers = this.http.post(this.config.serverUrl + "getpassenger", body, options)
+        return this.http.post(this.config.serverUrl + "getpassenger", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
-        return passengers;
     }
 
     updatePassengers(passengers: Passenger[]): Observable<Passenger[]> {
