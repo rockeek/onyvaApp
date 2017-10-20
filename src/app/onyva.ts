@@ -69,7 +69,7 @@ export class Onyva {
 
         // for debug only. To initialize clubs when there are none.
         // this.clubService.setDummyStoredClubs().then(
-        //     () => this.clubService.loadStoredClubs());
+        //   () => this.clubService.loadStoredClubs());
         
         // OR in prod:
         this.clubService.loadStoredClubs();

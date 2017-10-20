@@ -95,3 +95,23 @@ h2 {
 @keyframes blinker {  
   50% { opacity: 0; }
 }
+
+// Validation labels in forms
+ion-item.validation {
+    background: #FFA217;
+    color: #fff;
+    font-weight: 100;
+    border-radius: 0 0 16px 16px;
+    line-height: 1;
+    margin-top: -16px;
+    margin-left: 16px;
+}
+ion-item.information {
+    background: color($colors, secondary);
+    color: #fff;
+    font-weight: 100;
+    border-radius: 0 0 16px 16px;
+    line-height: 1;
+    margin-top: -16px;
+    margin-left: 16px;
+}

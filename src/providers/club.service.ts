@@ -98,14 +98,15 @@ export class ClubService {
      */
     public setDummyStoredClubs(): Promise<any> {
         let clubs = [
-            {clubId: 10001, password: "boing", name: "", photo: "assets/img/club-100.png"},
+            {clubId: 10001, password: "boing44", name: "", photo: "assets/img/club-100.png"},
             {clubId: 10010, password: "blabla", name: "Deuxième", photo: "assets/img/club-100.png"},
-            {clubId: 10003, password: "Wayne", name: "", photo: "assets/img/club-100.png"},
+            {clubId: 10003, password: "Wayne2", name: "", photo: "assets/img/club-100.png"},
             {clubId: null, password: "newClubPassword", name: "Dorothée club", photo: "assets/img/club-100.png"}
         ];
         
         // to reset clubs:
         // clubs = [];
+        
         return this.storage.set('clubs', clubs);
     }
 

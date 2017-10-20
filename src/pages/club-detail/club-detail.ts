@@ -32,10 +32,19 @@ export class ClubDetailPage {
         // If we don't, when we go back, the club appears modified.
         this.club = Object.assign({}, this.navParams.get('club'));
         this.callback = this.navParams.get('callback');
-        this.displayedName = this.club.clubId == null ? '[new]' : this.club.name;
+
+        this.displayedName = this.club.isInvalid ? '[Invalid club]'
+            : this.club.clubId == null ? '[Creating new club]'
+            : this.club.name;
+
+        if(this.club.isInvalid) { 
+            this.club.password = '';
+        }
+
         this.form = formBuilder.group({
             'clubId': [this.club.clubId],
-            'name': [this.club.name, Validators.required]
+            'name': [this.club.name, this.club.clubId == null ? Validators.required : null ],
+            'password': [this.club.password, Validators.compose([Validators.required, Validators.minLength(6)])]
         });
     }
 
@@ -46,5 +55,12 @@ export class ClubDetailPage {
             this.isLoading = false;
             this.navCtrl.pop();
          });
+    }
+
+    /**
+     * Whether Club can be shared. If it is existing and valid, it can be shared.
+     */
+    isSharing(): boolean {
+        return !this.club.isInvalid && this.club.clubId != null;
     }
 }
