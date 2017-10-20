@@ -35,22 +35,38 @@ export class ClubDetailPage {
         this.callback = this.navParams.get('callback');
         this.isCreatingOrJoining = this.navParams.get('isCreatingOrJoining');
 
-        this.displayedName = this.club.isInvalid ? '[invalid club]'
-            : this.isCreatingOrJoining ? '[creating new club]'
-            : this.isCreatingOrJoining == false ? '[joining club]'
-            : this.club.name;
-
-        if(this.club.isInvalid) { 
+        if(this.club.isInvalid) {
+            this.displayedName = '[invalid club]';
             this.club.password = '';
+            this.form = formBuilder.group({
+                'clubId': [this.club.clubId],
+                'password': [this.club.password, Validators.compose([Validators.required, Validators.minLength(6)])]
+            });
         }
-
-        this.form = formBuilder.group({
-            'clubId': [this.club.clubId],
-            'name': [this.club.name, this.club.clubId == null ? Validators.required : null ],
-            'password': [this.club.password, Validators.compose([Validators.required, Validators.minLength(6)])]
-        });
+        else if(this.isCreatingOrJoining) {
+            this.displayedName = '[creating new club]';
+            this.form = formBuilder.group({
+                'name': [this.club.name, Validators.required],
+                'password': [this.club.password, Validators.compose([Validators.required, Validators.minLength(6)])]
+            });   
+        }
+        else if(this.isCreatingOrJoining == false) {
+            this.displayedName = '[joining club]';
+            this.form = formBuilder.group({
+                'clubId': [this.club.clubId, Validators.required],
+                'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+            });
+        }
+        else { // Sharable club
+            this.displayedName = this.club.name;     
+            this.form = formBuilder.group({
+                'clubId': [this.club.clubId],
+                'password': [this.club.password]
+            });
+        }
     }
 
+    // TODO: all forms call this method for now.
     save(club: Club): void {
         this.isLoading = true;
 
@@ -58,12 +74,5 @@ export class ClubDetailPage {
             this.isLoading = false;
             this.navCtrl.pop();
          });
-    }
-
-    /**
-     * Whether Club can be shared. If it is existing and valid, it can be shared.
-     */
-    isSharing(): boolean {
-        return !this.club.isInvalid && this.club.clubId != null;
     }
 }
