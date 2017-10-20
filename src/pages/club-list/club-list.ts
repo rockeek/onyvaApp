@@ -15,7 +15,7 @@ export class ClubListPage implements OnInit {
     clubName: String;
     clubs: Club[];
     club = new Club();
-    isLoading: boolean;
+    isLoading: boolean = null;
 
     constructor(
         public navCtrl: NavController,
@@ -42,6 +42,28 @@ export class ClubListPage implements OnInit {
         });
     }
 
+    createCallback = (club) => {
+        // TODO
+        return new Promise((resolve, reject) => {
+            // this.clubService.updateClubs([club])
+            //     .subscribe(clubs => { 
+            //         this.clubs = clubs;
+            //         resolve(); // resolve only when we get the server's answer
+            //     }, error => this.errorMessage = <any>error);            
+        });
+    }
+
+    joinCallback = (club) => {
+        // TODO
+        return new Promise((resolve, reject) => {
+            // this.clubService.updateClubs([club])
+            //     .subscribe(clubs => { 
+            //         this.clubs = clubs;
+            //         resolve(); // resolve only when we get the server's answer
+            //     }, error => this.errorMessage = <any>error);            
+        });
+    }
+
     open(club: Club) {
         this.navCtrl.push(ClubDetailPage,
             {
@@ -51,12 +73,24 @@ export class ClubListPage implements OnInit {
         );
     }
 
-    add() {
+    //add() {
+    create() {        
         let club = new Club();
         this.navCtrl.push(ClubDetailPage,
             {
+                isCreatingOrJoining: true,
                 club: club,
-                callback: this.saveCallback
+                callback: this.createCallback
+            });
+    }
+
+    join() {        
+        let club = new Club();
+        this.navCtrl.push(ClubDetailPage,
+            {
+                isCreatingOrJoining: false,
+                club: club,
+                callback: this.joinCallback
             });
     }
 

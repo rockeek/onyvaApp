@@ -22,6 +22,7 @@ export class ClubDetailPage {
     displayedName: string;
     errorMessage: string;
     isLoading: boolean;
+    isCreatingOrJoining: boolean = null;
 
     constructor(
         public navCtrl: NavController,
@@ -32,9 +33,11 @@ export class ClubDetailPage {
         // If we don't, when we go back, the club appears modified.
         this.club = Object.assign({}, this.navParams.get('club'));
         this.callback = this.navParams.get('callback');
+        this.isCreatingOrJoining = this.navParams.get('isCreatingOrJoining');
 
-        this.displayedName = this.club.isInvalid ? '[Invalid club]'
-            : this.club.clubId == null ? '[Creating new club]'
+        this.displayedName = this.club.isInvalid ? '[invalid club]'
+            : this.isCreatingOrJoining ? '[creating new club]'
+            : this.isCreatingOrJoining == false ? '[joining club]'
             : this.club.name;
 
         if(this.club.isInvalid) { 
