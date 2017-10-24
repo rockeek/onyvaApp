@@ -41,7 +41,8 @@ export class PassengerDetailPage {
 
     save(passenger: Passenger): void {
         this.isLoading = true;
-
+        passenger.name = passenger.name.trim();
+        
         // Call the passengerListPage's callback so that, once saved, 
         // the server's response refreshes the list of passengers automatically
         // Trick from // https://forum.ionicframework.com/t/solved-ionic2-navcontroller-pop-with-params/58104/4

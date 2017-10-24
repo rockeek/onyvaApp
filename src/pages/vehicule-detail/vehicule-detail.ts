@@ -45,6 +45,9 @@ export class VehiculeDetailPage {
 
     save(vehicule: Vehicule): void {
         this.isLoading = true;
+        vehicule.color = vehicule.color.trim();
+        vehicule.name = vehicule.name.trim();
+        vehicule.trademark = vehicule.trademark.trim();
 
         // Call the vehiculeListPage's callback so that, once saved, 
         // the server's response refreshes the list of vehicules automatically

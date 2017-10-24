@@ -69,6 +69,8 @@ export class ClubDetailPage {
     // TODO: all forms call this method for now.
     save(club: Club): void {
         this.isLoading = true;
+        club.name = club.name == null ? null : club.name.trim();
+        club.password = club.password == null ? null : club.password.trim();
 
         this.callback(club).then(()=>{
             this.isLoading = false;
