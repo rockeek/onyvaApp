@@ -50,28 +50,26 @@ export class ClubService {
         });
     }
 
-    public createClub(newClub: Club): Observable<Club[]> {
-        // this.storedClubs.push(newClub);
-        // return this.storage.set('clubs', this.storedClubs).then(
-        //     () => this.loadStoredClubs()
-        //  );
+    /**
+     * Post and validate new club. Returns the created club with its clubId, name, password.
+     * @param newClub Club to create. Contains only name and password.
+     */
+    public createClub(newClub: Club): Observable<Club> {
         let clubs = this.storedClubs;
         
         var c: Club[] = [newClub];
-        let obs = this.validateClubs(c);
-        
-        obs.subscribe(_clubs => 
-            {
+        return this.validateClubs(c)
+            .map((clubs: Club[]) => {
+                let _club = clubs[0];
                 this.storage.get('clubs').then((val) => 
                 {
-                    val.push(_clubs[0]);
+                    val.push(_club);
                     this.storage.set('clubs', val);
-                })
-                
-            })
-
-        return obs;
+                });
+                return _club;
+            });
     }
+
     //----------------
     updateClubs(clubs: Club[]): Observable<Club[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });

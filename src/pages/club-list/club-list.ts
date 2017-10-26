@@ -33,16 +33,11 @@ export class ClubListPage implements OnInit {
     }
 
     createCallback = (club) => {
-        // this.clubs.push(club);
-        // return new Observable;
-
         this.clubService.createClub(club)
-            .subscribe(_clubs => 
-                {
-                    // this.clubService.storeClubs.
-                    this.clubs.push(_clubs[0])
-                }
-        );
+            .subscribe(_club => 
+                    {
+                        this.clubs.push(_club)
+                    });
     };
 
     create() {        
@@ -65,8 +60,6 @@ export class ClubListPage implements OnInit {
                 }, error => this.errorMessage = <any>error);            
         });
     }
-
-
 
     joinCallback = (club) => {
         // TODO

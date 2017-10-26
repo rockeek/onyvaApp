@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { ClubService } from '../../providers/club.service';
 import { Club } from '../../app/club';
 import {
 	FormBuilder,
@@ -10,10 +9,7 @@ import {
 
 @Component({
     selector: 'page-club-detail',
-    templateUrl: 'club-detail.html',
-    providers: [
-        ClubService
-    ]
+    templateUrl: 'club-detail.html'
 })
 export class ClubDetailPage {
     public form: FormGroup;
@@ -27,7 +23,6 @@ export class ClubDetailPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams, 
-        public service: ClubService,
         private formBuilder: FormBuilder,
         private toastCtrl: ToastController) {
         // Copy the passed object to break the bindings.
