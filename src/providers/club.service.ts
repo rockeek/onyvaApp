@@ -50,6 +50,28 @@ export class ClubService {
         });
     }
 
+    public createClub(newClub: Club): Observable<Club[]> {
+        // this.storedClubs.push(newClub);
+        // return this.storage.set('clubs', this.storedClubs).then(
+        //     () => this.loadStoredClubs()
+        //  );
+        let clubs = this.storedClubs;
+        
+        var c: Club[] = [newClub];
+        let obs = this.validateClubs(c);
+        
+        obs.subscribe(_clubs => 
+            {
+                this.storage.get('clubs').then((val) => 
+                {
+                    val.push(_clubs[0]);
+                    this.storage.set('clubs', val);
+                })
+                
+            })
+
+        return obs;
+    }
     //----------------
     updateClubs(clubs: Club[]): Observable<Club[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -74,22 +96,6 @@ export class ClubService {
         return this.http.post(this.config.serverUrl + "deleteclub", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
-    }
-
-    private extractData(res: Response) {
-        let body = res.json();
-        let clubs = body || {};
-
-        clubs.forEach(club => {
-            club.photo = "assets/img/club-96.png";
-        });
-
-        return clubs;
-    }
-
-    private handleErrorObservable(error: Response | any) {
-        console.error("Club service: " + (error.message || error));
-        return Observable.throw("Club service: " + (error.message || error));
     }
 
     /**
@@ -125,5 +131,21 @@ export class ClubService {
             .catch(this.handleErrorObservable);
 
         return response;
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        let clubs = body || {};
+
+        clubs.forEach(club => {
+            club.photo = "assets/img/club-96.png";
+        });
+
+        return clubs;
+    }
+
+    private handleErrorObservable(error: Response | any) {
+        console.error("Club service: " + (error.message || error));
+        return Observable.throw("Club service: " + (error.message || error));
     }
 }

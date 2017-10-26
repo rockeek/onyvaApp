@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { ClubService } from '../../providers/club.service';
 import { Club } from '../../app/club';
 import {
@@ -28,7 +28,8 @@ export class ClubDetailPage {
         public navCtrl: NavController,
         public navParams: NavParams, 
         public service: ClubService,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private toastCtrl: ToastController) {
         // Copy the passed object to break the bindings.
         // If we don't, when we go back, the club appears modified.
         this.club = Object.assign({}, this.navParams.get('club'));
@@ -66,6 +67,26 @@ export class ClubDetailPage {
         }
     }
 
+    create(club: Club): void {
+        // Save locally
+        // this.service.createClub(this.club);
+        // Validate club
+        // If failed: show error in info bar
+
+        // toast "you created club 105654"
+        // this.navCtrl.pop();
+        // this.showClubCreatedToast();
+        this.isLoading = true;
+        // this.callback(club);
+        // this.isLoading = false;
+        // this.navCtrl.pop();
+        this.callback(club);
+        // .then(() => {
+        this.isLoading = false;
+        this.navCtrl.pop();
+        // })
+    }
+
     // TODO: all forms call this method for now.
     save(club: Club): void {
         this.isLoading = true;
@@ -76,5 +97,18 @@ export class ClubDetailPage {
             this.isLoading = false;
             this.navCtrl.pop();
          });
+    }
+
+    private showClubCreatedToast() {
+        const toast = this.toastCtrl.create({
+            message: 'Club successfully created',
+            duration: 1500
+        });
+        toast.onDidDismiss(this.dismissHandler);
+        toast.present();
+    }
+
+    private dismissHandler() {
+        console.info('Toast onDidDismiss()');
     }
 }

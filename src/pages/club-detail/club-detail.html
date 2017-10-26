@@ -39,7 +39,7 @@
         </form>
 
         <!-- For creating club -->
-        <form [formGroup]="form" (ngSubmit)="save(form.value)" *ngIf="this.isCreatingOrJoining">
+        <form [formGroup]="form" (ngSubmit)="create(form.value)" *ngIf="this.isCreatingOrJoining">
             <ion-item margin-bottom>
                 <ion-label>Club name</ion-label>
                 <ion-input type="text" formControlName="name"></ion-input>	    	

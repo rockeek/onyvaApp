@@ -5,6 +5,7 @@ import { ClubService } from '../../providers/club.service';
 import { ClubDetailPage } from '../club-detail/club-detail';
 import { Club } from '../../app/club';
 import leaflet from 'leaflet';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'page-club-list',
@@ -30,6 +31,29 @@ export class ClubListPage implements OnInit {
     fetchClubs(): void {
         this.clubs = this.clubService.storedClubs;
     }
+
+    createCallback = (club) => {
+        // this.clubs.push(club);
+        // return new Observable;
+
+        this.clubService.createClub(club)
+            .subscribe(_clubs => 
+                {
+                    // this.clubService.storeClubs.
+                    this.clubs.push(_clubs[0])
+                }
+        );
+    };
+
+    create() {        
+        let club = new Club();
+        this.navCtrl.push(ClubDetailPage,
+            {
+                isCreatingOrJoining: true,
+                club: club,
+                callback: this.createCallback
+            });
+    }
     //-----------------------------------
 
     saveCallback = (club) => {
@@ -42,16 +66,7 @@ export class ClubListPage implements OnInit {
         });
     }
 
-    createCallback = (club) => {
-        // TODO
-        return new Promise((resolve, reject) => {
-            // this.clubService.updateClubs([club])
-            //     .subscribe(clubs => { 
-            //         this.clubs = clubs;
-            //         resolve(); // resolve only when we get the server's answer
-            //     }, error => this.errorMessage = <any>error);            
-        });
-    }
+
 
     joinCallback = (club) => {
         // TODO
@@ -73,16 +88,6 @@ export class ClubListPage implements OnInit {
         );
     }
 
-    //add() {
-    create() {        
-        let club = new Club();
-        this.navCtrl.push(ClubDetailPage,
-            {
-                isCreatingOrJoining: true,
-                club: club,
-                callback: this.createCallback
-            });
-    }
 
     join() {        
         let club = new Club();
