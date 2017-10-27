@@ -72,6 +72,6 @@ export class VehiculeService {
 
     private handleErrorObservable(error: Response | any) {
         console.error("Vehicule service: " + (error.message || error));
-        return Observable.throw("Vehicule service: " + (error.message || error));
+        return Observable.throw("Vehicule service is not feeling very well...");
     }
 }

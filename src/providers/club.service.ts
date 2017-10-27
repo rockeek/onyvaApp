@@ -177,6 +177,6 @@ export class ClubService {
 
     private handleErrorObservable(error: Response | any) {
         console.error("Club service: " + (error.message || error));
-        return Observable.throw("Club service: " + (error.message || error));
+        return Observable.throw("Club service is not feeling very well...");
     }
 }

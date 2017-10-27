@@ -72,6 +72,6 @@ export class PassengerService {
 
     private handleErrorObservable(error: Response | any) {
         console.error("Passenger service: " + (error.message || error));
-        return Observable.throw("Passenger service: " + (error.message || error));
+        return Observable.throw("Passenger service is not feeling very well...");
     }
 }
