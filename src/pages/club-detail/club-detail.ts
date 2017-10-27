@@ -68,6 +68,11 @@ export class ClubDetailPage {
                 'password': [this.club.password]
             });
         }
+
+        // When data is modified, we clear the 'validation' field.
+        this.form.valueChanges.subscribe(data => {
+            this.invalidFromServer = false;
+        });
     }
 
     // Create a new club.
@@ -106,9 +111,8 @@ export class ClubDetailPage {
             });
     }
 
-    // TODO
     share(club: Club) {
-
+        this.showToast('Your friend can join your club with this information.');
     }
 
     private sanitizeClub(club: Club): Club {
@@ -117,10 +121,10 @@ export class ClubDetailPage {
         return club;
     }
 
-    private showClubCreatedToast() {
+    private showToast(message: string) {
         const toast = this.toastCtrl.create({
-            message: 'Club successfully created',
-            duration: 1500
+            message: message,
+            duration: 2000
         });
         toast.onDidDismiss(this.dismissHandler);
         toast.present();
