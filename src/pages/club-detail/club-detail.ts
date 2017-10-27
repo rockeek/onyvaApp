@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Club } from '../../app/club';
 import { ClubService } from '../../providers/club.service';
 import {
@@ -28,7 +28,6 @@ export class ClubDetailPage {
         public navCtrl: NavController,
         public navParams: NavParams, 
         private formBuilder: FormBuilder,
-        private toastCtrl: ToastController,
         private clubService: ClubService) {
         // Copy the passed object to break the bindings.
         // If we don't, when we go back, the club appears modified.
@@ -79,6 +78,7 @@ export class ClubDetailPage {
     create(club: Club): void {
         this.callback(this.sanitizeClub(club));
         this.navCtrl.pop();
+        this.clubService.showToast('Club being created...');
     }
 
     // Validate an invalid club. Or Join a new club.
@@ -103,6 +103,7 @@ export class ClubDetailPage {
                 if(this.club.isInvalid != true) {
                     this.callback(this.sanitizeClub(this.club));
                     this.navCtrl.pop();
+                    this.clubService.showToast('Club successfully joined.')
                 }
                 else if(this.passwordTries == this.maxPasswordTries) {
                     // After 3 unsuccessful tries, come back to the list
@@ -112,25 +113,12 @@ export class ClubDetailPage {
     }
 
     share(club: Club) {
-        this.showToast('Your friend can join your club with this information.');
+        this.clubService.showToast('Your friend can join your club with this information.');
     }
 
     private sanitizeClub(club: Club): Club {
         club.name = club.name == null ? null : club.name.trim();
         club.password = club.password == null ? null : club.password.trim();
         return club;
-    }
-
-    private showToast(message: string) {
-        const toast = this.toastCtrl.create({
-            message: message,
-            duration: 2000
-        });
-        toast.onDidDismiss(this.dismissHandler);
-        toast.present();
-    }
-
-    private dismissHandler() {
-        console.info('Toast onDidDismiss()');
     }
 }

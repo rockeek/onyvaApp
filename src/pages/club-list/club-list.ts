@@ -36,12 +36,13 @@ export class ClubListPage implements OnInit {
         this.clubService.createClub(club)
             .subscribe(_club => 
                     {
-                        this.clubs.push(_club)
+                        this.clubs.push(_club);
+                        this.clubService.showToast('Club successfully created.')
                     });
     };
 
     // Click on Create
-    create() {        
+    create() {
         let club = new Club();
         this.navCtrl.push(ClubDetailPage,
             {

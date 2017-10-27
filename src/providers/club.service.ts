@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import {Config} from './config';
 import {Club} from '../app/club';
 import {DeviceService} from './device.service';
+import { ToastController } from 'ionic-angular';
 
 @Injectable()
 export class ClubService {
@@ -19,7 +20,8 @@ export class ClubService {
         private http: Http, 
         private deviceService: DeviceService,
         private storage: Storage,
-        private config: Config) { }
+        private config: Config,
+        private toastCtrl: ToastController) { }
 
     get storedClubs(): Club[] {
         return this._storedClubs;
@@ -46,6 +48,10 @@ export class ClubService {
                         this.isLoading = false;
                     }
                 )
+            }
+            else {
+                this.storage.set('clubs', new Array<Club>())
+                    .then(() => this.isLoading = false);
             }
         });
     }
@@ -132,6 +138,23 @@ export class ClubService {
         // clubs = [];
         
         return this.storage.set('clubs', clubs);
+    }
+
+    /**
+     * Displays a toast message.
+     * @param message Message to display
+     */
+    public showToast(message: string) {
+        const toast = this.toastCtrl.create({
+            message: message,
+            duration: 2000
+        });
+        toast.onDidDismiss(this.dismissHandler);
+        toast.present();
+    }
+
+    private dismissHandler() {
+        console.info('Toast onDidDismiss()');
     }
 
     private extractData(res: Response) {
