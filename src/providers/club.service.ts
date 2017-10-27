@@ -51,7 +51,11 @@ export class ClubService {
             }
             else {
                 this.storage.set('clubs', new Array<Club>())
-                    .then(() => this.isLoading = false);
+                    .then(() => {
+                        this.storedClubs = new Array<Club>();
+                        console.debug("Empty Clubs initialized.");                        
+                        this.isLoading = false;
+                    });
             }
         });
     }
