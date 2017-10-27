@@ -84,7 +84,13 @@ export class ClubDetailPage {
             .subscribe(validatedClub => 
             {
                 this.passwordTries = this.passwordTries + 1;
-                this.club = validatedClub;
+                
+                // Don't copy the object. You'd lose the original Club reference in the list.
+                this.club.clubId = validatedClub.clubId;
+                this.club.name = validatedClub.name;
+                this.club.isInvalid = validatedClub.isInvalid;
+                this.club.password = validatedClub.password;
+                this.club.photo = validatedClub.photo;
                 
                 this.invalidFromServer = this.club.isInvalid;
                 this.isLoading = false;
