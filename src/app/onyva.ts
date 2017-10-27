@@ -65,14 +65,18 @@ export class Onyva {
 
     onFullyRegistered() {
         console.debug("Entered onFullyRegistered");
+        let resetForDebug = false;
 
-
-        // for debug only. To initialize clubs when there are none.
-        // this.clubService.setDummyStoredClubs().then(
-        //   () => this.clubService.loadStoredClubs());
+        if(resetForDebug) {
+            // for debug only. To initialize clubs when there are none.
+            this.clubService.setDummyStoredClubs().then(
+                () => this.clubService.loadStoredClubs());
+        }
+        else {
+            // prod:
+            this.clubService.loadStoredClubs();
+        }
         
-        // OR in prod:
-        this.clubService.loadStoredClubs();
     }
 
     openPage(page) {

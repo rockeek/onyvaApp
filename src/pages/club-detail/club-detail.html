@@ -12,7 +12,7 @@
         </ion-card-content>
         
         <!-- For invalid club -->
-        <form [formGroup]="form" (ngSubmit)="save(form.value)" *ngIf="club.isInvalid">
+        <form [formGroup]="form" (ngSubmit)="join(form.value)" *ngIf="club.isInvalid">
             <ion-item margin-bottom>
                 <ion-label>Id</ion-label>
                 <ion-input type="text" formControlName="clubId" readonly="true"></ion-input>	    	
@@ -29,12 +29,16 @@
                 *ngIf="club.isInvalid && !(form.get('password').dirty || form.get('password').touched)">
                 <p>The password for this club is not correct. Try again.</p>
             </ion-item>
+            <ion-item class="validation" 
+                *ngIf="invalidFromServer">
+                <p>The password for this club is not correct. Try again.</p>
+            </ion-item>
         
             <ion-item margin-bottom>
                 <button ion-button color="primary"
                     text-center
                     block
-                    [disabled]="!form.valid">Join</button>
+                    [disabled]="!form.valid || isLoading">Join</button>
             </ion-item>
         </form>
 
@@ -66,7 +70,7 @@
         </form>
 
         <!-- For joining club -->
-        <form [formGroup]="form" (ngSubmit)="save(form.value)" *ngIf="this.isCreatingOrJoining==false">
+        <form [formGroup]="form" (ngSubmit)="join(form.value)" *ngIf="this.isCreatingOrJoining==false">
             <ion-item margin-bottom>
                 <ion-label>Id</ion-label>
                 <ion-input type="text" formControlName="clubId"></ion-input>	    	

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Club } from '../../app/club';
+import { ClubService } from '../../providers/club.service';
 import {
 	FormBuilder,
 	FormGroup,
@@ -19,15 +20,19 @@ export class ClubDetailPage {
     errorMessage: string;
     isLoading: boolean;
     isCreatingOrJoining: boolean = null;
+    invalidFromServer: boolean;
 
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams, 
         private formBuilder: FormBuilder,
-        private toastCtrl: ToastController) {
+        private toastCtrl: ToastController,
+        private clubService: ClubService) {
         // Copy the passed object to break the bindings.
         // If we don't, when we go back, the club appears modified.
-        this.club = Object.assign({}, this.navParams.get('club'));
+        // this.club = Object.assign({}, this.navParams.get('club'));
+        this.club = this.navParams.get('club');
+
         this.callback = this.navParams.get('callback');
         this.isCreatingOrJoining = this.navParams.get('isCreatingOrJoining');
 
@@ -62,36 +67,48 @@ export class ClubDetailPage {
         }
     }
 
+    // Create a new club.
     create(club: Club): void {
-        // Save locally
-        // this.service.createClub(this.club);
-        // Validate club
-        // If failed: show error in info bar
-
-        // toast "you created club 105654"
-        // this.navCtrl.pop();
-        // this.showClubCreatedToast();
-        this.isLoading = true;
-        // this.callback(club);
-        // this.isLoading = false;
-        // this.navCtrl.pop();
-        this.callback(club);
-        // .then(() => {
-        this.isLoading = false;
+        this.callback(this.sanitizeClub(club));
         this.navCtrl.pop();
-        // })
+    }
+
+    // Validate an invalid club. Or Join a new club.
+    join(club: Club): void {
+        this.isLoading = true;
+        this.invalidFromServer = false;
+        this.clubService.checkClub(club)
+            .subscribe(validatedClub => 
+            {
+                this.club.isInvalid = validatedClub.isInvalid;
+                this.club.password = validatedClub.password;
+                this.club.name = validatedClub.name;
+
+                this.invalidFromServer = validatedClub.isInvalid;
+                this.isLoading = false;
+
+                if(this.club.isInvalid != true)
+                {
+                    this.callback(this.sanitizeClub(club));
+                    this.navCtrl.pop();                    
+                }
+            });
     }
 
     // TODO: all forms call this method for now.
     save(club: Club): void {
         this.isLoading = true;
-        club.name = club.name == null ? null : club.name.trim();
-        club.password = club.password == null ? null : club.password.trim();
 
-        this.callback(club).then(()=>{
+        this.callback(this.sanitizeClub(club)).then(()=>{
             this.isLoading = false;
             this.navCtrl.pop();
          });
+    }
+
+    private sanitizeClub(club: Club): Club {
+        club.name = club.name == null ? null : club.name.trim();
+        club.password = club.password == null ? null : club.password.trim();
+        return club;
     }
 
     private showClubCreatedToast() {

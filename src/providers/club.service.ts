@@ -50,6 +50,10 @@ export class ClubService {
         });
     }
 
+    public storeClubs(clubs: Club[]) {
+        this.storage.set('clubs', clubs);
+    }
+
     /**
      * Post and validate new club. Returns the created club with its clubId, name, password.
      * @param newClub Club to create. Contains only name and password.
@@ -57,8 +61,8 @@ export class ClubService {
     public createClub(newClub: Club): Observable<Club> {
         let clubs = this.storedClubs;
         
-        var c: Club[] = [newClub];
-        return this.validateClubs(c)
+        let clubArray: Club[] = [newClub];
+        return this.validateClubs(clubArray)
             .map((clubs: Club[]) => {
                 let _club = clubs[0];
                 this.storage.get('clubs').then((val) => 
@@ -70,15 +74,31 @@ export class ClubService {
             });
     }
 
+    public checkClub(club: Club): Observable<Club> {
+        let clubArray: Club[] = [club];
+        
+        return this.validateClubs(clubArray)
+            .map((clubs: Club[]) => {
+                let _club = clubs[0];
+                return _club;
+            });
+    }
     //----------------
-    updateClubs(clubs: Club[]): Observable<Club[]> {
+    /**
+     * Validate stored clubs against server. Validated clubs are stored back.
+     * 
+     * @param clubs Clubs to validate. They usually come from storage
+     */
+    private validateClubs(clubs: Club[]): Observable<Club[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let params = {identifier: this.deviceService.identifier, clubs: clubs};
         let body = JSON.stringify(params);
-        return this.http.post(this.config.serverUrl + "club", body, options)
+        var response = this.http.post(this.config.serverUrl + "club", body, options)
             .map(this.extractData)
             .catch(this.handleErrorObservable);
+
+        return response;
     }
 
     deleteClub(club: Club): Observable<Club[]> {
@@ -103,7 +123,7 @@ export class ClubService {
     public setDummyStoredClubs(): Promise<any> {
         let clubs = [
             {clubId: 10001, password: "boing44", name: "", photo: "assets/img/club-100.png"},
-            {clubId: 10010, password: "blabla", name: "Deuxième", photo: "assets/img/club-100.png"},
+            {clubId: 10005, password: "blabla", name: "Deuxième", photo: "assets/img/club-100.png"},
             {clubId: 10003, password: "Wayne2", name: "", photo: "assets/img/club-100.png"},
             {clubId: null, password: "newClubPassword", name: "Dorothée club", photo: "assets/img/club-100.png"}
         ];
@@ -112,23 +132,6 @@ export class ClubService {
         // clubs = [];
         
         return this.storage.set('clubs', clubs);
-    }
-
-    /**
-     * Validate stored clubs against server. Validated clubs are stored back.
-     * 
-     * @param clubs Clubs to validate. They usually come from storage
-     */
-    private validateClubs(clubs: Club[]): Observable<Club[]> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let params = {identifier: this.deviceService.identifier, clubs: clubs};
-        let body = JSON.stringify(params);
-        var response = this.http.post(this.config.serverUrl + "club", body, options)
-            .map(this.extractData)
-            .catch(this.handleErrorObservable);
-
-        return response;
     }
 
     private extractData(res: Response) {

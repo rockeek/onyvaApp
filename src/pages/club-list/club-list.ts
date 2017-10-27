@@ -40,6 +40,7 @@ export class ClubListPage implements OnInit {
                     });
     };
 
+    // Click on Create
     create() {        
         let club = new Club();
         this.navCtrl.push(ClubDetailPage,
@@ -49,40 +50,15 @@ export class ClubListPage implements OnInit {
                 callback: this.createCallback
             });
     }
-    //-----------------------------------
-
-    saveCallback = (club) => {
-        return new Promise((resolve, reject) => {
-            this.clubService.updateClubs([club])
-                .subscribe(clubs => { 
-                    this.clubs = clubs;
-                    resolve(); // resolve only when we get the server's answer
-                }, error => this.errorMessage = <any>error);            
-        });
-    }
 
     joinCallback = (club) => {
-        // TODO
-        return new Promise((resolve, reject) => {
-            // this.clubService.updateClubs([club])
-            //     .subscribe(clubs => { 
-            //         this.clubs = clubs;
-            //         resolve(); // resolve only when we get the server's answer
-            //     }, error => this.errorMessage = <any>error);            
-        });
+        // save the current clubs
+        this.clubService.storeClubs(this.clubs);
     }
 
-    open(club: Club) {
-        this.navCtrl.push(ClubDetailPage,
-            {
-                club: club,
-                callback: this.saveCallback
-            }
-        );
-    }
-
-
-    join() {        
+    // Click on join
+    // TODO
+    join() {
         let club = new Club();
         this.navCtrl.push(ClubDetailPage,
             {
@@ -91,6 +67,35 @@ export class ClubListPage implements OnInit {
                 callback: this.joinCallback
             });
     }
+
+    // Open an existing club.
+    // Give a callback for joining a club.
+    open(club: Club) {
+        this.navCtrl.push(ClubDetailPage,
+            {
+                club: club,
+                callback: this.joinCallback,
+                clubService: this.clubService
+            }
+        );
+    }
+
+
+    //-----------------------------------
+
+    // saveCallback = (club) => {
+    //     return new Promise((resolve, reject) => {
+    //         this.clubService.updateClubs([club])
+    //             .subscribe(clubs => { 
+    //                 this.clubs = clubs;
+    //                 resolve(); // resolve only when we get the server's answer
+    //             }, error => this.errorMessage = <any>error);            
+    //     });
+    // }
+
+
+
+
 
     delete(club: Club) {
         let index: number = this.clubs.indexOf(club);
