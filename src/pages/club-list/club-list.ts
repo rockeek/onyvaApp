@@ -83,13 +83,17 @@ export class ClubListPage implements OnInit {
             });
     }
 
-//---------------
-    delete(club: Club) {
+    // Quit a club
+    quit(club: Club) {
         let index: number = this.clubs.indexOf(club);
+        this.isLoading = true;
         if (index !== -1) {
-            this.clubService.deleteClub(club)
-                .subscribe(clubs => this.clubs = clubs,
-                error => this.errorMessage = <any>error);
+            this.clubService.quitClub(club).subscribe((isOk) =>
+                {
+                    this.fetchClubs();
+                    this.isLoading = false;
+                }
+            );
         }
     }
 

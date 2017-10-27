@@ -107,19 +107,26 @@ export class ClubService {
         return response;
     }
 
-    deleteClub(club: Club): Observable<Club[]> {
-        if(club == null) {
-            return;
-        }
+    /**
+     * Quit club. The new list of Clubs is stored.
+     * @param club Club to quit
+     */
+    quitClub(club: Club): Observable<boolean> {
 
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        return Observable.create(observer =>
+        {
+            if(club == null) {
+                observer.next(false);
+                observer.complete();
+            }
 
-        let params = {identifier: this.deviceService.identifier, clubId: club.clubId};
-        let body = JSON.stringify(params);
-        return this.http.post(this.config.serverUrl + "deleteclub", body, options)
-            .map(this.extractData)
-            .catch(this.handleErrorObservable);
+            let index: number = this.storedClubs.indexOf(club);
+            this.storedClubs.splice(index, 1);
+            this.storeClubs(this.storedClubs);
+            observer.next(true);
+            observer.complete();
+        });
+        
     }
 
     /**
