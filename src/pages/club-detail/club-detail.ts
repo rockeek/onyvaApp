@@ -21,6 +21,8 @@ export class ClubDetailPage {
     isLoading: boolean;
     isCreatingOrJoining: boolean = null;
     invalidFromServer: boolean;
+    passwordTries: number;
+    maxPasswordTries: number = 3;
 
     constructor(
         public navCtrl: NavController,
@@ -32,6 +34,7 @@ export class ClubDetailPage {
         // If we don't, when we go back, the club appears modified.
         // this.club = Object.assign({}, this.navParams.get('club'));
         this.club = this.navParams.get('club');
+        this.passwordTries = 0;
 
         this.callback = this.navParams.get('callback');
         this.isCreatingOrJoining = this.navParams.get('isCreatingOrJoining');
@@ -80,29 +83,26 @@ export class ClubDetailPage {
         this.clubService.checkClub(club)
             .subscribe(validatedClub => 
             {
-                this.club.isInvalid = validatedClub.isInvalid;
-                this.club.password = validatedClub.password;
-                this.club.name = validatedClub.name;
-
-                this.invalidFromServer = validatedClub.isInvalid;
+                this.passwordTries = this.passwordTries + 1;
+                this.club = validatedClub;
+                
+                this.invalidFromServer = this.club.isInvalid;
                 this.isLoading = false;
 
-                if(this.club.isInvalid != true)
-                {
-                    this.callback(this.sanitizeClub(club));
-                    this.navCtrl.pop();                    
+                if(this.club.isInvalid != true) {
+                    this.callback(this.sanitizeClub(this.club));
+                    this.navCtrl.pop();
+                }
+                else if(this.passwordTries == this.maxPasswordTries) {
+                    // After 3 unsuccessful tries, come back to the list
+                    this.navCtrl.pop();
                 }
             });
     }
 
-    // TODO: all forms call this method for now.
-    save(club: Club): void {
-        this.isLoading = true;
+    // TODO
+    share(club: Club) {
 
-        this.callback(this.sanitizeClub(club)).then(()=>{
-            this.isLoading = false;
-            this.navCtrl.pop();
-         });
     }
 
     private sanitizeClub(club: Club): Club {

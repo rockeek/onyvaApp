@@ -51,21 +51,8 @@ export class ClubListPage implements OnInit {
             });
     }
 
-    joinCallback = (club) => {
-        // save the current clubs
+    joinExistingClubCallback = (club) => {
         this.clubService.storeClubs(this.clubs);
-    }
-
-    // Click on join
-    // TODO
-    join() {
-        let club = new Club();
-        this.navCtrl.push(ClubDetailPage,
-            {
-                isCreatingOrJoining: false,
-                club: club,
-                callback: this.joinCallback
-            });
     }
 
     // Open an existing club.
@@ -74,29 +61,28 @@ export class ClubListPage implements OnInit {
         this.navCtrl.push(ClubDetailPage,
             {
                 club: club,
-                callback: this.joinCallback,
-                clubService: this.clubService
+                callback: this.joinExistingClubCallback
             }
         );
     }
 
+    joinNewClubCallback = (club: Club) => {
+        this.clubs.push(club);
+        this.clubService.storeClubs(this.clubs);
+    }
 
-    //-----------------------------------
+    // Click on join
+    join() {
+        let club = new Club();
+        this.navCtrl.push(ClubDetailPage,
+            {
+                isCreatingOrJoining: false,
+                club: club,
+                callback: this.joinNewClubCallback
+            });
+    }
 
-    // saveCallback = (club) => {
-    //     return new Promise((resolve, reject) => {
-    //         this.clubService.updateClubs([club])
-    //             .subscribe(clubs => { 
-    //                 this.clubs = clubs;
-    //                 resolve(); // resolve only when we get the server's answer
-    //             }, error => this.errorMessage = <any>error);            
-    //     });
-    // }
-
-
-
-
-
+//---------------
     delete(club: Club) {
         let index: number = this.clubs.indexOf(club);
         if (index !== -1) {

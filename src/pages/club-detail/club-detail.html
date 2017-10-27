@@ -10,12 +10,43 @@
             <h2 id="clubName">{{displayedName}}</h2>
             <ion-spinner *ngIf="isLoading" icon="spiral"></ion-spinner>
         </ion-card-content>
-        
+
         <!-- For invalid club -->
-        <form [formGroup]="form" (ngSubmit)="join(form.value)" *ngIf="club.isInvalid">
+        <form [formGroup]="form" (ngSubmit)="join(form.value)" *ngIf="this.isCreatingOrJoining == null && club.isInvalid">
             <ion-item margin-bottom>
                 <ion-label>Id</ion-label>
-                <ion-input type="text" formControlName="clubId" readonly="true"></ion-input>	    	
+                <ion-input type="number" formControlName="clubId" readonly="true"></ion-input>	    	
+            </ion-item>
+            <ion-item margin-bottom>
+                <ion-label>Password</ion-label>
+                <ion-input type="text" formControlName="password"></ion-input>
+            </ion-item>
+            <ion-item class="validation" 
+                *ngIf="form.get('password').hasError('minlength') && (form.get('password').dirty || form.get('password').touched)">
+                <p>Password must be at least 6 characters</p>
+            </ion-item>
+            <ion-item class="validation" 
+                *ngIf="club.isInvalid && !(form.get('password').dirty || form.get('password').touched)">
+                <p>The password for this club is not correct. Try again.</p>
+            </ion-item>
+            <ion-item class="validation" 
+                *ngIf="invalidFromServer">
+                <p>The password for this club is not correct. Try again.</p>
+            </ion-item>
+        
+            <ion-item margin-bottom>
+                <button ion-button color="primary"
+                    text-center
+                    block
+                    [disabled]="!form.valid || isLoading">Join</button>
+            </ion-item>
+        </form>
+
+        <!-- For joining club -->       
+        <form [formGroup]="form" (ngSubmit)="join(form.value)" *ngIf="this.isCreatingOrJoining==false">
+            <ion-item margin-bottom>
+                <ion-label>Id</ion-label>
+                <ion-input type="number" formControlName="clubId"></ion-input>	    	
             </ion-item>
             <ion-item margin-bottom>
                 <ion-label>Password</ion-label>
@@ -69,38 +100,11 @@
             </ion-item>
         </form>
 
-        <!-- For joining club -->
-        <form [formGroup]="form" (ngSubmit)="join(form.value)" *ngIf="this.isCreatingOrJoining==false">
-            <ion-item margin-bottom>
-                <ion-label>Id</ion-label>
-                <ion-input type="text" formControlName="clubId"></ion-input>	    	
-            </ion-item>
-            <ion-item margin-bottom>
-                <ion-label>Password</ion-label>
-                <ion-input type="text" formControlName="password"></ion-input>
-            </ion-item>
-            <ion-item class="validation" 
-                *ngIf="form.get('password').hasError('minlength') && (form.get('password').dirty || form.get('password').touched)">
-                <p>Password must be at least 6 characters</p>
-            </ion-item>
-            <ion-item class="validation" 
-                *ngIf="club.isInvalid && !(form.get('password').dirty || form.get('password').touched)">
-                <p>The password for this club is not correct. Try again.</p>
-            </ion-item>
-        
-            <ion-item margin-bottom>
-                <button ion-button color="primary"
-                    text-center
-                    block
-                    [disabled]="!form.valid">Join</button>
-            </ion-item>
-        </form>
-
         <!-- For sharable club -->
-        <form [formGroup]="form" (ngSubmit)="save(form.value)" *ngIf="this.isCreatingOrJoining == null && club.isInvalid != true">
+        <form [formGroup]="form" (ngSubmit)="share(form.value)" *ngIf="this.isCreatingOrJoining == null && club.isInvalid != true">
             <ion-item margin-bottom>
                 <ion-label>Id</ion-label>
-                <ion-input type="text" formControlName="clubId" readonly="true"></ion-input>	    	
+                <ion-input type="number" formControlName="clubId" readonly="true"></ion-input>	    	
             </ion-item>
             <ion-item margin-bottom>
                 <ion-label>Password</ion-label>
