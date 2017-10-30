@@ -5,7 +5,7 @@ export class VehiculeData implements InMemoryDbService {
     let vehicules = [
       {
         vehiculeId: 1,
-        photo: "../assets/img/onyva-logo.png",
+        photo: "../assets/img/vehicule-128",
         name: "Xsara Remy",
         trademark: "Citroen Xsara",
         color: "Grise",
@@ -13,7 +13,7 @@ export class VehiculeData implements InMemoryDbService {
       },
       {
         vehiculeId: 2,
-        photo: "../assets/img/onyva-logo.png",
+        photo: "../assets/img/vehicule-128",
         name: "Opel Olivier",
         trademark: "Opel Corsa",
         color: "Bleue",
@@ -21,7 +21,7 @@ export class VehiculeData implements InMemoryDbService {
       },
       {
         vehiculeId: 3,
-        photo: "../assets/img/onyva-logo.png",
+        photo: "../assets/img/vehicule-128",
         name: "Super Ferrarri",
         trademark: "Ferrarri",
         color: "Rouge",

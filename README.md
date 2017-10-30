@@ -1,6 +1,6 @@
 # Onyva application
 
-Onyva application: Ionic 2 application. 
+Onyva application to organize transportation with friends. 
 
 ## Installation Instructions
 
@@ -64,7 +64,19 @@ This way we can reach the REST services from another web server without having C
 
 To build for production
     ```
-    ionic build browser --prod --release
+    ionic cordova build browser --prod --release
     ```
 
 Copy the output of www
+You can improve the WebApp presentation by improving the manifest: https://thishereweb.com/understanding-the-manifest-for-web-app-3f6cd2b853d6
+
+# About icons
+
+Origin:
+https://icones8.fr/icon/set/passenger/all
+https://icones8.fr/icon/set/navette/all
+
+To generate them all:
+    ```
+    ionic cordova resources
+    ```
